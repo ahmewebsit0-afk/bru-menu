@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BRÜ | Menu</title>
+<meta name="description" content="BRÜ menu — breakfast, bakery, main dishes, coffee and drinks. Plaza España Mall.">
+<meta name="theme-color" content="#231f20">
+<meta property="og:title" content="BRÜ | Menu">
+<meta property="og:description" content="Brewed To Be Remembered — see the full menu and prices.">
+<meta property="og:image" content="img/og.jpg">
+<link rel="icon" type="image/png" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<style>html,body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@500;600;700;800&family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: COCO-style flow in BRÜ's identity — black header with centered logo; beige splash with logo + two language buttons; 2-column grid of photo cards; one category per page on paper with dotted price leaders; black footer */
+:root{
+  --black:#231f20;     /* brand black */
+  --bean:#4f2800;      /* brand brown */
+  --latte:#f7dcbf;     /* brand beige */
+  --paper:#fbf5ec;     /* menu sheet */
+  --ink:#2b2220;
+  --muted:#85776b;
+  --rule:#d9c7b1;
+  --serif:"Crimson Pro","Minion Pro",Georgia,"Times New Roman",serif;
+  --sans:"Montserrat","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+html[lang="ar"]{--serif:"Amiri","Times New Roman",serif;--sans:"Tajawal","Segoe UI",Tahoma,sans-serif}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--black)}
+html{height:100%}
+body{color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.5;-webkit-tap-highlight-color:transparent;min-height:100%;display:flex;flex-direction:column}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--black)}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--bean);outline-offset:3px}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1000px;margin:0 auto}
+.caps{font-family:var(--sans);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:12px}
+html[lang="ar"] .caps{letter-spacing:0;font-size:14px}
+main{flex:1;display:flex;flex-direction:column;background:var(--paper)}
+main>section{flex:none}
+main>#start{flex:1;display:grid;align-content:center}
+#start .tag{margin-top:26px;color:var(--bean);opacity:.75}
+
+/* ---------- header ---------- */
+.top{background:var(--black);color:var(--latte);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.top .in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding-block:14px 12px}
+.top .logo img{height:58px;width:auto}
+.top nav{display:flex;gap:22px;justify-content:center;grid-column:1/-1;padding-top:2px}
+.top nav a{opacity:.8;padding-bottom:4px;border-bottom:1px solid transparent}
+.top nav a.on{opacity:1;color:var(--latte);border-bottom-color:var(--latte)}
+.lang{justify-self:end;border:1px solid rgba(247,220,191,.5);padding:8px 14px;border-radius:4px}
+.lang:hover{background:var(--latte);color:var(--black)}
+.top .back{justify-self:start;display:flex;align-items:center;gap:6px;opacity:.85}
+.top .back svg{width:18px;height:18px}
+html[dir="rtl"] .back svg{transform:scaleX(-1)}
+
+/* ---------- splash ---------- */
+#start{background-color:var(--latte);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .31 0 0 0 0 .16 0 0 0 0 0 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+#start .in{display:grid;justify-items:center;text-align:center;gap:0;padding-block:72px 64px}
+#start .big{width:clamp(220px,62vw,360px);height:auto}
+#start .langs{display:flex;gap:clamp(16px,10vw,120px);justify-content:center;flex-wrap:wrap;margin-top:72px}
+.pick{min-width:150px;padding:12px 28px;border:2px solid var(--bean);border-radius:999px;color:var(--bean);font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:.08em;transition:background .2s,color .2s}
+.pick:hover{background:var(--bean);color:var(--latte)}
+.pick[lang="ar"]{font-family:"Tajawal",sans-serif;letter-spacing:0;font-size:20px}
+
+
+/* logo assembles on the opening screen */
+#start{overflow:hidden}
+.build{position:relative;width:clamp(240px,62vw,380px);aspect-ratio:1998/1175}
+.build .pc{position:absolute;height:auto;max-width:none}
+.pc-b{left:0;top:19.489%;width:27.528%}
+.pc-r{left:31.882%;top:19.489%;width:31.882%}
+.pc-u{left:63.363%;top:19.489%;width:36.637%}
+.pc-d1{left:68.368%;top:0;width:8.709%}
+.pc-d2{left:87.087%;top:3.319%;width:6.807%}
+.pc-tag{left:0;top:89.362%;width:100%}
+@media (prefers-reduced-motion:no-preference){
+  #start.play .pc{animation:.75s cubic-bezier(.2,1.3,.35,1) both}
+  #start.play .pc-b{animation-name:fromLeft}
+  #start.play .pc-r{animation-name:fromBelow;animation-delay:.12s}
+  #start.play .pc-u{animation-name:fromRight;animation-delay:.24s}
+  #start.play .pc-d1{animation:drop .8s cubic-bezier(.3,.7,.4,1) .78s both}
+  #start.play .pc-d2{animation:drop .8s cubic-bezier(.3,.7,.4,1) .92s both}
+  #start.play .pc-tag{animation:reveal .7s ease-out 1.15s both}
+  #start.play .build{animation:pop .5s ease-out 1.6s both}
+  #start.play .langs{animation:rise .6s ease-out 1.75s both}
+  @keyframes fromLeft{from{transform:translateX(-160%) scale(1.25);opacity:0;filter:blur(10px)}}
+  @keyframes fromRight{from{transform:translateX(160%) scale(1.25);opacity:0;filter:blur(10px)}}
+  @keyframes fromBelow{from{transform:translateY(120%) scale(1.25);opacity:0;filter:blur(10px)}}
+  @keyframes drop{0%{transform:translateY(-650%);opacity:0}55%{transform:translateY(18%);opacity:1}72%{transform:translateY(-14%)}86%{transform:translateY(5%)}100%{transform:none}}
+  @keyframes reveal{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
+  @keyframes pop{0%,100%{transform:none}45%{transform:scale(1.06)}}
+  @keyframes rise{from{transform:translateY(24px);opacity:0}}
+}
+
+
+/* ---------- most ordered: plate carousel ---------- */
+.best{background:var(--black);color:var(--latte);position:relative;overflow:hidden;--g:#c77a2a}
+.best-head{display:grid;justify-items:center;gap:10px;padding-top:30px;position:relative;z-index:3}
+.best-head h2{margin:0;font-family:var(--sans);font-weight:800;font-size:clamp(22px,5vw,30px);letter-spacing:.14em;text-transform:uppercase;color:#fff}
+html[lang="ar"] .best-head h2{letter-spacing:0}
+.best-head .dots{width:180px;color:var(--latte)}
+.stage{position:relative;height:clamp(300px,86vw,470px);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.glow{position:absolute;left:50%;top:52%;width:min(80vw,560px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background-color:var(--g);filter:blur(80px);opacity:.5;transition:background-color .9s,transform .9s cubic-bezier(.2,.85,.25,1)}
+.best.open .glow{transform:translate(-5%,-50%) scale(1.15)}
+html[dir="rtl"] .best.open .glow{transform:translate(-95%,-50%) scale(1.15)}
+.plate{position:absolute;left:50%;top:52%;width:min(74vw,500px);padding:0;transform:var(--t);opacity:var(--o,1);transition:transform .85s cubic-bezier(.2,.85,.25,1),opacity .6s;z-index:var(--z,1)}
+.plate img{width:100%;height:auto;pointer-events:none;filter:drop-shadow(0 26px 30px rgba(0,0,0,.6))}
+.plate.cur{cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.plate.cur img{animation:float 5s ease-in-out infinite}}
+@keyframes float{50%{transform:translateY(-6px)}}
+.tapme{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);z-index:4;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 10px rgba(255,255,255,.18);pointer-events:none;transition:opacity .4s}
+@media (prefers-reduced-motion:no-preference){.tapme{animation:tap 2.2s ease-in-out infinite}}
+@keyframes tap{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(.82)}}
+.best.open .tapme,.best.used .tapme{opacity:0}
+.info{position:absolute;z-index:5;inset-block:0;inset-inline-start:0;width:min(58%,420px);display:flex;flex-direction:column;justify-content:center;gap:12px;padding-inline:max(16px,env(safe-area-inset-left,0px)) 0;opacity:0;transform:translateX(-24px);pointer-events:none;transition:opacity .45s,transform .6s}
+@media (min-width:900px){.info{inset-inline-start:calc(50% - 470px)}}
+html[dir="rtl"] .info{transform:translateX(24px);padding-inline:max(16px,env(safe-area-inset-right,0px)) 0}
+.best.open .info{opacity:1;transform:none;pointer-events:auto;transition-delay:.25s}
+.info .backc{width:46px;height:46px;border-radius:50%;background:var(--latte);color:var(--bean);display:grid;place-items:center;margin-bottom:6px}
+.info .backc svg{width:20px;height:20px}
+html[dir="rtl"] .info .backc svg{transform:scaleX(-1)}
+.tags{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-family:var(--sans);font-size:13px;font-weight:600;color:#fff}
+.tags li{display:flex;align-items:center;gap:8px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.tags li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--latte);flex:none}
+.info h3{margin:6px 0 0;font-family:var(--sans);font-weight:800;font-size:clamp(20px,5vw,30px);line-height:1.15;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.info p{margin:0;font-size:15.5px;line-height:1.45;color:rgba(247,220,191,.88);text-shadow:0 1px 10px rgba(0,0,0,.8)}
+html[lang="ar"] .info p{font-family:"Tajawal",sans-serif}
+.info .big{font-family:var(--sans);font-weight:800;font-size:clamp(34px,9vw,52px);line-height:1;color:#fff;margin-top:6px;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.info .big small{font-size:.38em;font-weight:600;color:var(--latte);margin-inline-start:6px;letter-spacing:.1em}
+.info a{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--latte);border-bottom:1px solid rgba(247,220,191,.4);align-self:flex-start}
+.best-meta{display:grid;justify-items:center;gap:6px;padding-bottom:26px;position:relative;z-index:3;transition:opacity .4s}
+.best.open .best-meta{opacity:0;pointer-events:none}
+.best-meta .nm{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-align:center}
+html[lang="ar"] .best-meta .nm{letter-spacing:0;font-size:19px}
+.best-meta .sub{font-family:var(--sans);font-size:12.5px;color:rgba(247,220,191,.7)}
+.best-nav{display:flex;align-items:center;gap:16px;margin-top:8px}
+.best-nav button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(247,220,191,.35);display:grid;place-items:center;color:var(--latte)}
+.best-nav button:hover{background:var(--latte);color:var(--bean)}
+.best-nav svg{width:18px;height:18px}
+html[dir="rtl"] .best-nav svg{transform:scaleX(-1)}
+.pips{display:flex;gap:7px}
+.pips i{width:7px;height:7px;border-radius:50%;background:rgba(247,220,191,.3);transition:background .3s,width .3s}
+.pips i.on{background:var(--latte);width:20px;border-radius:4px}
+
+/* ---------- category grid ---------- */
+.grid-wrap{padding-block:28px 40px}
+.ghead{display:flex;align-items:center;gap:14px;color:var(--bean);margin:8px 0 14px}
+.ghead::after{content:"";flex:1;height:1px;background:var(--rule)}
+.ghead+.grid{margin-bottom:34px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{position:relative;height:clamp(118px,30vw,200px);border-radius:6px;overflow:hidden;display:grid;place-items:center;text-align:center;background:var(--black)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.card img.tall{object-position:50% 45%}
+.card::after{content:"";position:absolute;inset:0;background:rgba(35,31,32,.48);transition:background .3s}
+.card:hover img{transform:scale(1.05)}
+.card:hover::after{background:rgba(79,40,0,.55)}
+.card b{position:relative;z-index:1;color:#fff;font-family:var(--sans);font-weight:800;font-size:clamp(17px,4.6vw,30px);letter-spacing:.04em;text-transform:uppercase;line-height:1.1;padding:0 10px;text-shadow:0 2px 12px rgba(0,0,0,.45);text-wrap:balance}
+html[lang="ar"] .card b{letter-spacing:0;font-size:clamp(19px,5vw,32px)}
+
+/* ---------- category page ---------- */
+.banner{position:relative;height:clamp(170px,40vw,280px);overflow:hidden;background:var(--black);display:grid;place-items:center;text-align:center}
+.banner>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.banner>img.tall{object-position:50% 45%}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(35,31,32,.35),rgba(35,31,32,.7))}
+.banner .t{position:relative;z-index:1;color:#fff;display:grid;gap:8px;justify-items:center}
+.banner h1{margin:0;font-family:var(--sans);font-weight:800;font-size:clamp(30px,8vw,52px);letter-spacing:.05em;text-transform:uppercase;line-height:1.05}
+html[lang="ar"] .banner h1{letter-spacing:0}
+.banner .caps{color:var(--latte)}
+.chips{background:var(--paper);border-bottom:1px solid var(--rule);position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--top-h,124px));z-index:10}
+.chips .in{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.chips .in::-webkit-scrollbar{display:none}
+.chips a{flex:none;padding:7px 14px;border-radius:999px;border:1px solid var(--rule);color:var(--muted)}
+.chips a.on{background:var(--bean);border-color:var(--bean);color:var(--latte)}
+.list{max-width:720px;margin:0 auto;padding-block:30px 10px}
+.note{font-style:italic;color:var(--muted);font-size:16px;margin:0 0 22px;padding-inline-start:12px;border-inline-start:2px solid var(--latte)}
+html[lang="ar"] .note{font-style:normal;font-family:"Tajawal",sans-serif;font-size:15px}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+.row{display:flex;align-items:baseline;gap:10px}
+.row .nm{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;min-width:0}
+html[lang="ar"] .row .nm{letter-spacing:0;font-size:17px}
+.row .lead{flex:1;min-width:16px;border-bottom:2px dotted var(--rule);transform:translateY(-4px)}
+.row .pr{font-family:var(--sans);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--bean)}
+.item p{margin:3px 0 0;color:var(--muted);font-size:16px;line-height:1.4;max-width:56ch}
+html[lang="ar"] .item p{font-family:"Tajawal",sans-serif;font-size:15px}
+.cur{color:var(--muted);font-style:italic;font-size:15px;margin:26px 0 0;text-align:center}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px;margin:30px auto 44px}
+.pager a{border:1px solid var(--rule);border-radius:6px;padding:12px 14px;min-width:0}
+.pager a:hover{border-color:var(--bean)}
+.pager a.next{text-align:end}
+.pager small{display:block;color:var(--muted)}
+.pager b{display:block;font-family:var(--sans);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--bean)}
+html[lang="ar"] .pager b{letter-spacing:0;font-size:16px}
+
+.card.wide{grid-column:1/-1;height:clamp(150px,34vw,240px)}
+.card.wide img{object-position:50% 40%}
+.banner .mk{height:34px;width:auto;margin-bottom:4px}
+.bev{max-width:1000px;margin:0 auto;padding-block:34px 0;columns:2;column-gap:64px}
+@media (max-width:760px){.bev{columns:1}}
+.sub{break-inside:avoid;margin-bottom:44px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--top-h,90px) + 64px)}
+.sub h2{margin:0 0 18px;font-family:var(--sans);font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:12px}
+.sub h2::after{content:"";flex:1;height:1px;background:var(--rule)}
+html[lang="ar"] .sub h2{letter-spacing:0}
+.bev+.cur{margin-top:0}
+.bev~.pager{max-width:1000px}
+
+/* ---------- contact (splash band + footer) ---------- */
+.find{background:var(--bean);color:var(--latte)}
+.find .in{display:grid;justify-items:center;gap:14px;text-align:center;padding-block:28px 30px}
+.find h2{margin:0;font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:.24em;text-transform:uppercase}
+html[lang="ar"] .find h2{letter-spacing:0;font-size:18px}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-family:var(--sans);font-size:14px}
+.fact{display:flex;align-items:center;gap:8px;min-width:0}
+.fact svg{width:18px;height:18px;flex:none;opacity:.85}
+.fact a{border-bottom:1px solid rgba(247,220,191,.35)}
+.socials{display:flex;gap:10px;justify-content:center}
+.socials a{width:42px;height:42px;border-radius:50%;border:1px solid rgba(247,220,191,.45);display:grid;place-items:center;transition:background .2s,color .2s}
+.socials a:hover{background:var(--latte);color:var(--bean)}
+.socials svg{width:19px;height:19px}
+.card .cnt{position:absolute;z-index:1;bottom:10px;inset-inline-end:12px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--latte);opacity:.9}
+html[lang="ar"] .card .cnt{letter-spacing:0;font-size:13px}
+
+body.splash footer .facts,body.splash footer .socials{display:none}
+body.splash footer .in{grid-template-columns:1fr;justify-items:center;text-align:center}
+.dir{margin-top:4px;border:1px solid var(--latte);padding:10px 22px;color:var(--latte);transition:background .2s,color .2s}
+.dir:hover{background:var(--latte);color:var(--bean)}
+/* ---------- footer ---------- */
+footer{background:var(--black);color:var(--latte)}
+footer .in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:24px 36px;padding-block:38px calc(30px + env(safe-area-inset-bottom,0px))}
+footer .facts{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:8px}
+footer .socials{justify-content:flex-end}
+@media (max-width:720px){footer .in{grid-template-columns:1fr;justify-items:center;text-align:center}footer .facts{align-items:center}footer .socials,footer nav{justify-content:center}}
+footer img{height:64px;width:auto}
+footer nav{display:flex;gap:20px;flex-wrap:wrap}
+footer nav a,footer nav button{opacity:.85}
+footer small{grid-column:1/-1;font-family:var(--sans);font-size:12px;opacity:.6;border-top:1px solid rgba(247,220,191,.15);padding-top:18px;width:100%}
+footer nav{grid-column:1/-1;justify-content:center}
+</style>
+
+</head>
+<body>
+<header class="top gut" id="top">
+  <div class="in">
+    <a class="back caps" id="back" href="#menu" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span data-t="cats"></span></a>
+    <span id="spacer"></span>
+    <a class="logo" href="#" aria-label="BRÜ"><img src="img/logo-full-beige.png" alt="BRÜ — Brewed To Be Remembered"></a>
+    <button class="lang caps" id="langBtn"></button>
+  </div>
+</header>
+
+<main>
+  <!-- splash: logo + language choice -->
+  <section id="start" class="gut">
+    <div class="in">
+      <div class="build" role="img" aria-label="BRÜ — Brewed To Be Remembered">
+        <img class="pc pc-b" src="img/lg-b.png" alt=""><img class="pc pc-r" src="img/lg-r.png" alt=""><img class="pc pc-u" src="img/lg-u.png" alt="">
+        <img class="pc pc-d1" src="img/lg-d1.png" alt=""><img class="pc pc-d2" src="img/lg-d2.png" alt=""><img class="pc pc-tag" src="img/lg-tag.png" alt="">
+      </div>
+      <div class="langs">
+        <button class="pick" data-lang="en" lang="en">ENGLISH</button>
+        <button class="pick" data-lang="ar" lang="ar">العربية</button>
+      </div>
+    </div>
+  </section>
+  <section class="find gut" id="find" hidden><div class="in">
+    <h2 data-t="findus"></h2><div class="facts" data-facts></div><div class="socials" data-socials></div><a class="dir caps" id="dir" target="_blank" rel="noopener" hidden></a>
+  </div></section>
+
+  <!-- most ordered -->
+  <section class="best" id="best" hidden>
+    <div class="best-head"><span class="caps" data-t="bestEy"></span><h2 data-t="best"></h2><div class="dots"><i></i></div></div>
+    <div class="stage" id="stage">
+      <div class="glow"></div>
+      <div id="plates"></div>
+      <span class="tapme" aria-hidden="true"></span>
+      <div class="info" id="info"></div>
+    </div>
+    <div class="best-meta">
+      <div class="nm" id="bestName"></div><div class="sub" id="bestSub"></div>
+      <div class="best-nav">
+        <button id="bestPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="pips" id="pips"></div>
+        <button id="bestNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- category cards -->
+  <section id="grid" class="gut grid-wrap" hidden><div class="in" id="gridIn"></div></section>
+
+  <!-- one category -->
+  <section id="cat" hidden></section>
+</main>
+
+<footer class="gut">
+  <div class="in">
+    <img src="img/logo-full-beige.png" alt="BRÜ — Brewed To Be Remembered">
+    <div class="facts" data-facts></div>
+    <div class="socials" data-socials></div>
+    <nav class="caps"><a href="#" data-t="home"></a><a href="#menu" data-t="menu"></a><button id="footLang"></button></nav>
+    <small id="copy"></small>
+  </div>
+</footer>
+
+<script>
+const SIDES_AR="يقدم مع البطاطس الودجز والمشروم والخضراوات الطازجة";
+const SIDES_EN="Served with potato wedges, mushrooms and fresh vegetables";
+const MENU=[
+ {id:"breakfast",g:"food",en:"Breakfast",ar:"الفطار",img:"breakfast",items:[
+  ["Classic Spanish Omelette","أومليت كلاسيك",230,"Classic omelette. "+SIDES_EN,"كلاسيك أومليت "+SIDES_AR],
+  ["Bacon Omelette","أومليت بيف بيكون",295,"Omelette with beef bacon. "+SIDES_EN,"أومليت بالبيف بيكون "+SIDES_AR],
+  ["Mushroom Omelette","أومليت مشروم",280,"Mushroom omelette. "+SIDES_EN,"أومليت بالمشروم "+SIDES_AR],
+  ["Creamy Cheese Omelette","أومليت بالجبن الكريمي",245,"Cream cheese omelette. "+SIDES_EN,"أومليت بالجبن الكريمي "+SIDES_AR],
+  ["Salmon Benedict","سالمون بنديكت",350,"Poached eggs with salmon on a bagel, served with potato wedges and fresh vegetables","البيض البوشيه مع السالمون والبيجل يقدم مع البطاطس الودجز والخضراوات الطازجة"],
+  ["Bacon Benedict","بيكون بنديكت",325,"Poached eggs with beef bacon on a bagel, served with potato wedges and fresh vegetables","البيض البوشيه مع البيف بيكون والبيجل يقدم مع البطاطس الودجز والخضراوات الطازجة"],
+  ["Avocado Poached Eggs","بيض بوشيه بالأفوكادو",315,"Poached eggs with avocado on a bagel, served with potato wedges and fresh vegetables","البيض البوشيه مع الأفوكادو والبيجل يقدم مع البطاطس الودجز والخضراوات الطازجة"],
+  ["English Breakfast","الفطار الإنجليزي",275,"Omelette with potato wedges, mushrooms, sausage, beef bacon and fresh vegetables","أومليت يقدم مع البطاطس الودجز والمشروم والسوسيس والبيكون والخضراوات الطازجة"],
+  ["Pastrami Omelette","أومليت بسطرمة",280,"Pastrami omelette. "+SIDES_EN,"أومليت بالبسطرمة "+SIDES_AR],
+  ["Scrambled Eggs","بيض سكرامبلد",230,"Fluffy scrambled eggs. "+SIDES_EN,"البيض المخفوق الهش "+SIDES_AR],
+  ["Sunny Side-Up","بيض عيون",235,"Fried eggs. "+SIDES_EN,"البيض العيون "+SIDES_AR],
+  ["Oriental Breakfast","الفطار الشرقي",250,"Foul and feta with tomato, served with fries and vegetables","فول وجبن فيتا بالطماطم يقدم مع البطاطس المقلية والخضراوات"]]},
+ {id:"bakery",g:"food",en:"Bakery",ar:"المخبوزات",img:"bakery",items:[
+  ["Croissant","كرواسون سادة",95],
+  ["Cheese Croissant","كرواسون جبن",145],
+  ["Cheese & Pastrami Croissant","كرواسون جبن وبسطرمة",160],
+  ["Turkey & Cheese Croissant","كرواسون تركي وجبن",150,"Filled with smoked turkey and cheese","محشو بالتركي المدخن والجبن"],
+  ["Za’atar Croissant","كرواسون زعتر",140],
+  ["Salmon Croissant","كرواسون سالمون",220,"Filled with smoked salmon","محشو سالمون مدخن"],
+  ["Chocolate / Nutella Croissant","كرواسون شوكولاتة / نوتيلا",155],
+  ["Pistachio Croissant","كرواسون فستق",170,"Filled with pistachio cream","بكريمة الفستق"]]},
+ {id:"sandwiches",g:"food",en:"Sandwiches",ar:"الساندوتشات",img:"sandwiches",items:[
+  ["Smoked Turkey Club","كلوب تركي مدخن",260,"Smoked turkey, cheddar and lettuce on toast","التركي المدخن مع الجبن الشيدر والخس في عيش توست"],
+  ["Chicken & Turkey Sandwich","ساندوتش فراخ وتركي",280,"Fried chicken, American cheese, smoked turkey, house sauce and lettuce on brioche","الدجاج المقلي مع الجبن الأمريكي والتركي المدخن مع الصوص الخاص والخس في خبز بريوش"],
+  ["Buffalo Chicken Sandwich","ساندوتش بافلو تشيكن",270,"Fried chicken in hot buffalo sauce with lettuce and ranch on brioche","الدجاج المقلي مع صوص البافلو الحار مع الخس مغطى بالرانش في خبز البريوش"],
+  ["Chicken Cheese Sandwich","ساندوتش تشيكن تشيز",270,"Fried chicken, American cheese, lettuce, onion, tomato and house sauce on brioche","الدجاج المقلي مع الجبن الأمريكي والخس والبصل والطماطم والصوص الخاص في خبز بريوش"],
+  ["Smoked Salmon on Bagel","بيجل سالمون مدخن",350,"Bagel with smoked salmon, cream cheese, sliced onion, capers and lettuce","البيجل محشو بالسالمون المدخن والكريم تشيز وشرائح البصل والكابريس والخس"],
+  ["Halloumi Pesto","حلومي بيستو",280,"Grilled halloumi with pesto and sun-dried tomatoes on baguette","الجبن الحلوم المشوي مع صوص البيستو والطماطم المجففة في خبز باجيت"],
+  ["Spicy Chicken Fajita","فاهيتا فراخ سبايسي",290,"Grilled fajita chicken with grilled vegetables and house sauce on baguette","دجاج الفاهيتا المشوي مع الخضار المشوي والصوص الخاص في خبز باجيت"],
+  ["Avocado Tuna Toast","توست تونة وأفوكادو",240,"Sourdough with feta and avocado","خبز السوردو مع الجبن الفيتا والأفوكادو"],
+  ["Roast Beef","روست بيف",290,"Sliced roast beef, Emmental, lettuce and mayo on baguette","شرائح الروست بيف مع الجبن الإيمنتال والخس والمايو في خبز الباجيت"],
+  ["Tuna Sandwich","ساندوتش تونة",255,"Tuna with fresh mixed vegetables on baguette","التونة مع خليط من الخضراوات الطازجة في خبز الباجيت"],
+  ["BRÜ Chicken Club Sandwich","كلوب تشيكن BRÜ",290,"Grilled chicken, smoked beef, lettuce and mayo on toast","الدجاج المشوي مع اللحم المدخن والخس والمايو في خبز التوست"]]},
+ {id:"pizza",g:"food",en:"Pizza",ar:"البيتزا",img:"pizza",items:[
+  ["Margherita","مارجريتا",250],["Quattro Formaggi","كواترو فورماجي",285],["Pepperoni","بيبروني",300],
+  ["Truffle Mushroom","مشروم ترافل",320],["Chicken Ranch","تشيكن رانش",300],["Chicken BBQ","تشيكن باربكيو",300],
+  ["Smoked Salmon","سالمون مدخن",380],["Tuna","تونة",295]]},
+ {id:"feteer",g:"food",en:"Feteer",ar:"الفطير",img:"feteer",items:[
+  ["Mixed Cheese Feteer","فطيرة جبن مشكل",240],["Hot Dog Feteer","فطيرة هوت دوج",260],["Pastrami Feteer","فطيرة بسطرمة",270],
+  ["Pastrami & Kiri Feteer","فطيرة بسطرمة وكيري",300],["Oriental Sausage Feteer","فطيرة سجق شرقي",270],["Oriental Sausage & Kiri Feteer","فطيرة سجق وكيري",300],
+  ["Minced Beef Feteer","فطيرة لحمة مفرومة",290],["Mixed Meat Feteer","فطيرة لحوم مشكلة",370],["Nutella Feteer","فطيرة نوتيلا",220],["Sugar Feteer","فطيرة سكر",195]]},
+ {id:"main-dishes",g:"food",en:"Main Dishes",ar:"الأطباق الرئيسية",img:"main",
+  note:["All plates come with two sides of your choice: white rice, mixed rice, mashed potatoes, potato wedges or sautéed vegetables, or one side of pasta.","جميع الأطباق تقدم مع طبقين جانبيين من (الأرز الأبيض - الأرز بالخلطة - البطاطس المهروسة - البطاطس الودجز - الخضار السوتيه) أو طبق جانبي واحد من المكرونة."],items:[
+  ["Cordon Bleu Plate","كوردن بلو",460,"Fried chicken breast stuffed with cheese and smoked beef","صدور الدجاج المقلية المحشوة بالجبن واللحم المدخن"],
+  ["Chicken Mushroom Plate","فراخ بالمشروم",430,"Grilled chicken breast in creamy mushroom sauce with sliced mushrooms","صدور الدجاج المشوية مع صوص المشروم الكريمي وقطع المشروم"],
+  ["Chicken Lemon Plate","فراخ بالليمون",395,"Grilled chicken breast in creamy lemon sauce","صدور الدجاج المشوية مع صوص الليمون الكريمي"],
+  ["Chicken Piccata Plate","تشيكن بيكاتا",420,"Grilled chicken breast with piccata sauce and mushrooms","صدور الدجاج المشوية مع صوص البيكاتا وقطع المشروم"],
+  ["Country Fried Chicken Plate","كانتري فرايد تشيكن",410,"Crispy fried chicken breast","صدور الدجاج المقلية"],
+  ["Escalope Pané Plate","إسكالوب بانيه",540,"Breaded fried beef escalope","شرائح اللحم المقلية"],
+  ["Rib Eye Steak","ستيك ريب آي",690,"Grilled rib-eye steak","ستيك الريب آي المشوي"],
+  ["Beef Piccata Plate","بيف بيكاتا",550,"Grilled beef slices with piccata sauce and mushrooms","شرائح اللحم المشوي مع صوص البيكاتا والمشروم"],
+  ["Beef Fillet Plate","فيليه لحم",590,"Beef fillet with mushroom sauce","قطع اللحم الفيليه مع صوص المشروم"],
+  ["Norwegian Grilled Salmon Fillet","فيليه سالمون نرويجي مشوي",685,"Premium Norwegian salmon with creamy lemon sauce","قطعة سالمون نرويجي فاخر بصوص ليمون كريمي"]]},
+ {id:"bru-plates",g:"food",en:"BRÜ Plates",ar:"أطباق BRÜ",img:"bruplates",
+  note:["All plates are served with French fries.","جميع الأطباق تقدم مع البطاطس المقلية."],items:[
+  ["Buffalo Chicken Tenders","تندرز بافلو",260,"Chicken strips tossed in buffalo sauce","ستريبس الدجاج المغطى بصوص البافلو"],
+  ["Chicken Strips","تشيكن ستريبس",250,"Crispy chicken strips","ستريبس الدجاج"],
+  ["French Fries","بطاطس مقلية",80],
+  ["Cheese Melt Fries","بطاطس بصوص الجبنة",110,"Fries topped with cheese sauce","بطاطس مقلية مع صوص الجبنة"],
+  ["Chicken Quesadillas","كاساديا فراخ",280,"Grilled chicken, bell peppers, onion and mozzarella in a tortilla","الفراخ المشوية مع الفلفل الألوان والبصل مع جبن الموزاريلا في خبز التورتيا"],
+  ["Beef & Cheese Quesadillas","كاساديا لحم وجبن",335,"Grilled beef fillet, bell peppers, onion and mozzarella in a tortilla","الفيليه المشوية مع الفلفل الألوان والبصل مع جبن الموزاريلا في خبز التورتيا"],
+  ["Salmon Rice Balls","كرات أرز بالسالمون",260,"White rice and melted mozzarella with premium smoked salmon","خليط من الأرز الأبيض والموزاريلا السايحة مع قطع السالمون المدخن الفاخر"]]},
+ {id:"pasta",g:"food",en:"Pasta",ar:"الباستا",img:"pasta",items:[
+  ["Shrimp Creamy Pasta","باستا جمبري بالكريمة",395,"Shrimp and pasta in white or red sauce","جمبري، باستا، صوص أبيض أو أحمر"],
+  ["Truffle Mushroom Pasta","باستا مشروم ترافل",355,"Creamy truffle sauce, mushrooms and grilled chicken","باستا، صوص الترافل الكريمي، مشروم والدجاج المشوي"],
+  ["Creamy Chicken Pesto Pasta","باستا بيستو بالفراخ",320,"Creamy pesto sauce with grilled chicken","مكرونة، صوص البيستو الكريمي والدجاج المشوي"],
+  ["Alfredo Chicken Mushroom Pasta","باستا ألفريدو فراخ ومشروم",295,"Creamy Alfredo sauce, mushrooms and grilled chicken","مكرونة، صوص الفريدو الكريمي، مشروم والدجاج المشوي"],
+  ["Marinara Chicken Parmesan Pasta","باستا مارينارا تشيكن بارميزان",270,"Pasta in marinara sauce","مكرونة مع صوص المارينارا"],
+  ["Spaghetti Bolognese","سباجيتي بولونيز",260,"Spaghetti in rich beef bolognese with parmesan","مكرونة السباغيتي مع صوص اللحم البولونيز الغني وجبن البارميزان"]]},
+ {id:"burger",g:"food",en:"Burger",ar:"البرجر",img:"burger",items:[
+  ["Classic Cheese Burger","تشيز برجر كلاسيك",295,"Two smashed patties, American cheese, lettuce, onion and tomato","قطعتين سماشد برجر مع الجبن الأمريكي والخس والبصل والطماطم"],
+  ["Truffle Mushroom Burger","برجر مشروم ترافل",360,"Two smashed patties, American cheese, beef bacon, mushrooms and truffle sauce","قطعتين سماشد برجر مع الجبن الأمريكي والبيكون والمشروم وصوص الترافل"],
+  ["Bacon Mushroom Burger","برجر بيكون مشروم",395,"Two smashed patties, American cheese, beef bacon and mushrooms","قطعتين سماشد برجر مع الجبن الأمريكي والبيكون والمشروم"]]},
+ {id:"salads",g:"food",en:"Salads",ar:"السلطات",img:"salads",items:[
+  ["Chicken Caesar Salad","سيزر سالاد بالفراخ",235,"Lettuce, Caesar dressing, grilled chicken and parmesan","خليط من الخس مع صوص السيزر والدجاج المشوي وجبن البارميزان"],
+  ["Chicken Yogurt Salad","سلطة زبادي بالفراخ",205,"Fresh greens, yogurt dressing and grilled chicken","خليط من الخضراوات الطازجة مع صوص الزبادي والفراخ المشوية"],
+  ["Tuna Salad","سلطة تونة",245,"Mixed vegetables and tuna with dressing","خليط من الخضراوات والتونة مع الدريسنج"],
+  ["Greek Salad","سلطة يونانية",220,"Fresh vegetables and feta with olive oil dressing","خليط من الخضراوات الطازجة والجبن الفيتا مع زيت الزيتون والدريسنج"]]},
+ {id:"soup",g:"food",en:"Soup",ar:"الشوربة",img:"soup",items:[
+  ["Creamy Chicken","شوربة فراخ بالكريمة",235,"Tender chicken pieces in a rich cream soup","مزيج من قطع الدجاج الطرية مع شوربة الكريمة الغنية"],
+  ["Creamy Mushroom","شوربة مشروم بالكريمة",205,"Fresh mushrooms in a rich cream soup","مزيج من المشروم الطازج مع شوربة الكريمة الغنية"],
+  ["Creamy Chicken Mushroom","شوربة فراخ ومشروم",245,"Chicken and fresh mushrooms in a rich cream soup","مزيج من الدجاج والمشروم الطازج مع شوربة الكريمة الغنية"]]},
+ {id:"desserts",g:"food",en:"Desserts",ar:"الحلويات",img:"desserts",items:[
+  ["Chocolate Cake","كيكة شوكولاتة",135],["San Sebastian Cheesecake","تشيز كيك سان سباستيان",155],["Tiramisu","تيراميسو",170],
+  ["Molten Chocolate Cake","مولتن كيك",185],["Cookies","كوكيز",105],["Brownies","براونيز",135],
+  ["Plain Cheesecake","تشيز كيك سادة",135],["Red Velvet Cake","ريد فيلفت",160]]},
+
+ {id:"hot-coffee",g:"drinks",en:"Hot Coffee",ar:"القهوة الساخنة",img:"hotcoffee",tall:1,items:[
+  ["Turkish Coffee Single","قهوة تركي سنجل",60],["Turkish Coffee Double","قهوة تركي دبل",80],["French Coffee","قهوة فرنساوي",90],
+  ["Nescafé Black","نسكافيه بلاك",70],["Nescafé Milk","نسكافيه باللبن",105],["Espresso","إسبريسو",80],["Americano","أمريكانو",115],
+  ["Latte","لاتيه",120],["Cappuccino","كابتشينو",115],["Flat White","فلات وايت",110],["Cortado","كورتادو",95],["Macchiato","ماكياتو",95],
+  ["Brown Belgian Mocha","موكا بلجيكي",175],["White Belgian Mocha","وايت موكا بلجيكي",175],["Spanish Latte","سبانش لاتيه",160],["Pistachio Latte","لاتيه فستق",185]]},
+ {id:"iced-coffee",g:"drinks",en:"Iced Coffee",ar:"القهوة المثلجة",img:"icedcoffee",tall:1,items:[
+  ["Iced Americano","آيس أمريكانو",100],["Iced Latte","آيس لاتيه",135],["Iced Cappuccino","آيس كابتشينو",125],["Iced Belgian Mocha","آيس موكا بلجيكي",165],
+  ["Iced White Belgian Mocha","آيس وايت موكا بلجيكي",165],["Iced Spanish Latte","آيس سبانش لاتيه",175],["Iced Pistachio Latte","آيس لاتيه فستق",195]]},
+ {id:"frappe",g:"drinks",en:"Frappe",ar:"الفرابيه",img:"frappe",tall:1,items:[
+  ["Latte Frappe","فرابيه لاتيه",140],["Spanish Coffee Frappe","فرابيه سبانش",175],["Vanilla Coffee Frappe","فرابيه فانيليا",180],
+  ["Caramel Coffee Frappe","فرابيه كراميل",160],["Mocha Coffee Frappe","فرابيه موكا",165],["White Mocha Coffee Frappe","فرابيه وايت موكا",165]]},
+ {id:"matcha",g:"drinks",en:"Matcha",ar:"الماتشا",img:"matcha",tall:1,items:[
+  ["Matcha Latte","ماتشا لاتيه",140],["Matcha Spanish Latte","ماتشا سبانش لاتيه",165],["Strawberry Cloud Matcha","ستروبيري كلاود ماتشا",175],
+  ["Iced Matcha Latte","آيس ماتشا لاتيه",155],["Iced Matcha Spanish Latte","آيس ماتشا سبانش لاتيه",175]]},
+ {id:"non-coffee",g:"drinks",en:"Non-Coffee Drinks",ar:"مشروبات بدون قهوة",img:"noncoffee",tall:1,items:[
+  ["Tea (Various Flavours)","شاي (نكهات متنوعة)",60],["Herbs Mix","أعشاب مشكلة",110],["Milk Tea","شاي باللبن",85],["Iced Chocolate","آيس شوكليت",165],
+  ["Chai Latte","شاي لاتيه",120],["Iced Chai Latte","آيس شاي لاتيه",140],["Belgian Hot Chocolate","هوت شوكليت بلجيكي",170],["Hot Apple Cider","هوت سايدر تفاح",120]]},
+ {id:"juices",g:"drinks",en:"Juices & Cocktails",ar:"العصائر والكوكتيل",img:"juices",tall:1,items:[
+  ["Fresh Orange Juice","عصير برتقال فريش",80],["Mango Juice","عصير مانجو",100],["Guava Juice","عصير جوافة",80],["Strawberry Juice","عصير فراولة",95],
+  ["Watermelon Juice","عصير بطيخ",100],["Lemon Mint Juice","ليمون نعناع",85],["Banana Milk","موز باللبن",120],["Avocado Honey","أفوكادو بالعسل",195],
+  ["Piña Colada","بينا كولادا",175],["Fruit Yogurt","زبادي بالفواكه",160],["Honey Yogurt","زبادي بالعسل",160]]},
+ {id:"smoothies",g:"drinks",en:"Smoothies",ar:"السموزي",img:"smoothies",tall:1,items:[
+  ["Watermelon Smoothie","سموزي بطيخ",140],["Blueberry Smoothie","سموزي بلوبيري",140],["Passion Fruit Smoothie","سموزي باشن فروت",140],
+  ["Lemon Smoothie","سموزي ليمون",110],["Lemon Mint Smoothie","سموزي ليمون نعناع",140],["Mango Smoothie","سموزي مانجو",140],
+  ["Mango Passion Smoothie","سموزي مانجو باشن",165],["Mango Peach Smoothie","سموزي مانجو خوخ",145],["Peach Smoothie","سموزي خوخ",140],
+  ["Orange Smoothie","سموزي برتقال",115],["Guava Smoothie","سموزي جوافة",140]]},
+ {id:"mojito",g:"drinks",en:"Mojito",ar:"الموهيتو",img:"mojito",tall:1,items:[
+  ["Classic Mojito","موهيتو كلاسيك",130],["Mixed Berries Mojito","موهيتو ميكس بيري",130],["Passion Fruit Mojito","موهيتو باشن فروت",130],
+  ["Peach Mojito","موهيتو خوخ",130],["Blue Sky Mojito","موهيتو بلو سكاي",130]]},
+ {id:"red-bull",g:"drinks",en:"Red Bull Addict",ar:"ريد بُل",img:"redbull",tall:1,items:[
+  ["Plain Red Bull","ريد بُل سادة",120],["Passion Fruit Red Bull","ريد بُل باشن فروت",150],["Peach Samba Red Bull","ريد بُل بيتش سامبا",150],
+  ["Lemon Twist Red Bull","ريد بُل ليمون تويست",150],["Mixed Berries Red Bull","ريد بُل ميكس بيري",150]]},
+ {id:"milkshakes",g:"drinks",en:"Milkshakes",ar:"الميلك شيك",img:"milkshakes",tall:1,items:[
+  ["Oreo Milkshake","ميلك شيك أوريو",160],["Strawberry Milkshake","ميلك شيك فراولة",150],["Mango Milkshake","ميلك شيك مانجو",150],
+  ["Mixed Berry Milkshake","ميلك شيك ميكس بيري",150],["Vanilla Milkshake","ميلك شيك فانيليا",140],["Caramel Milkshake","ميلك شيك كراميل",160],
+  ["Chocolate Milkshake","ميلك شيك شوكولاتة",170],["Lotus Milkshake","ميلك شيك لوتس",195]]},
+ {id:"others",g:"drinks",en:"Others",ar:"مشروبات أخرى",img:"others",tall:1,items:[
+  ["Soft Drinks","مشروبات غازية",60],["Mineral Water","مياه معدنية",25],["Sparkling Water","مياه فوارة",65]]}
+];
+
+
+/* ===== BRÜ contact details — fill these in; anything left empty stays hidden ===== */
+const INFO={
+  address:{en:"Plaza España Mall, Cairo, Egypt",ar:"بلازا إسبانيا مول، القاهرة، مصر"},
+  map:"https://maps.app.goo.gl/zhTdqH9Zuf4cSjwi7",
+  phones:[],                  // ["01xxxxxxxxx"]
+  hours:{en:"",ar:""},        // opening hours
+  whatsapp:"",                // number in international format, e.g. 2010xxxxxxxx
+  instagram:"https://www.instagram.com/bru_egypt/",facebook:"https://www.facebook.com/profile.php?id=61581620071570",tiktok:"https://www.tiktok.com/@bru_egypt"
+};
+const IC={
+ pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+ phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>',
+ facebook:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1z"/></svg>',
+ tiktok:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.2 3c.4 2.3 1.9 3.8 4.3 4v3.1c-1.6 0-3-.5-4.3-1.3v6.4a6 6 0 1 1-6-6v3.2a2.8 2.8 0 1 0 2.8 2.8V3h3.2z"/></svg>',
+ whatsapp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 20l1.3-4A8.5 8.5 0 1 1 8.4 19z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9a5 5 0 0 1-2.8-2.8l.9-1-1-2z" fill="currentColor" stroke="none"/></svg>'
+};
+function renderInfo(){
+  const L=lang, f=[];
+  if(INFO.address[L]){const a=esc(INFO.address[L]);f.push(`<span class="fact">${IC.pin}${INFO.map?`<a href="${esc(INFO.map)}" target="_blank" rel="noopener">${a}</a>`:a}</span>`)}
+  INFO.phones.forEach(n=>f.push(`<span class="fact">${IC.phone}<a href="tel:${esc(n)}" dir="ltr">${esc(n)}</a></span>`));
+  if(INFO.hours[L])f.push(`<span class="fact">${IC.clock}${esc(INFO.hours[L])}</span>`);
+  const so=[["instagram",INFO.instagram],["facebook",INFO.facebook],["tiktok",INFO.tiktok],["whatsapp",INFO.whatsapp&&("https://wa.me/"+INFO.whatsapp.replace(/\D/g,""))]]
+    .filter(x=>x[1]).map(([k,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${k}">${IC[k]}</a>`).join("");
+  document.querySelectorAll("[data-facts]").forEach(el=>{el.innerHTML=f.join("");el.hidden=!f.length});
+  document.querySelectorAll("[data-socials]").forEach(el=>{el.innerHTML=so;el.hidden=!so});
+  $("#find").dataset.has=(f.length||so)?"1":"";
+  const dir=$("#dir");dir.hidden=!INFO.map;if(INFO.map){dir.href=INFO.map;dir.textContent=T[L].dirs}
+}
+const T={
+ en:{bestEy:"BRÜ favourites",best:"Most ordered",tags:["Main dish","Two sides included","Bestseller"],seeAll:"All main dishes",tap:"Tap the plate for details",findus:"Find us",dirs:"Get directions",other:"العربية",cats:"Menu",home:"Home",menu:"Menu",food:"Food",drinks:"Drinks",items:n=>n+" items",prev:"Previous",next:"Next",
+     cur:"All prices in Egyptian pounds",copy:"© 2026 BRÜ · Brewed To Be Remembered · Prices in EGP"},
+ ar:{bestEy:"مفضلات BRÜ",best:"الأكثر طلباً",tags:["طبق رئيسي","مع طبقين جانبيين","الأكثر مبيعاً"],seeAll:"كل الأطباق الرئيسية",tap:"دوس على الطبق للتفاصيل",findus:"زورونا",dirs:"افتح الخريطة",other:"English",cats:"المنيو",home:"الرئيسية",menu:"المنيو",food:"الأكل",drinks:"المشروبات",items:n=>n+" صنف",prev:"السابق",next:"التالي",
+     cur:"كل الأسعار بالجنيه المصري",copy:"© 2026 BRÜ · الأسعار بالجنيه المصري"}
+};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let lang="en";try{lang=localStorage.getItem("bru-lang")||"en"}catch(e){}
+const nm=c=>lang==="ar"?c.ar:c.en;
+
+function applyLang(){
+  const t=T[lang];
+  document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>el.textContent=t[el.dataset.t]);
+  $("#langBtn").textContent=t.other;$("#footLang").textContent=t.other;$("#copy").textContent=t.copy;
+  $("#gridIn").innerHTML=`<div class="grid">${NAV.map(c=>
+    `<a class="card${c.id==="beverages"?" wide":""}" href="#${c.id}"><img src="img/${c.img}.jpg" alt="" loading="lazy" class="${c.tall?"tall":""}"><b>${esc(nm(c))}</b><span class="cnt">${t.items(c.items?c.items.length:DRINKS.reduce((n,d)=>n+d.items.length,0))}</span></a>`).join("")}</div>`;
+  renderInfo();
+  if(typeof layoutBest==="function")layoutBest();
+}
+/* food categories each get a card; every drink section sits under one Beverages card */
+const DRINKS=MENU.filter(c=>c.g==="drinks");
+const BEV={id:"beverages",en:"Beverages",ar:"المشروبات",img:"beverages"};
+const NAV=[...MENU.filter(c=>c.g==="food"),BEV];
+function chipsHTML(cur,list,extra){return `<div class="chips gut"><div class="in caps">${list.map(x=>`<a href="#${x.id}" class="${x.id===cur?"on":""}">${esc(nm(x))}</a>`).join("")}</div></div>`}
+function pagerHTML(c){
+  const t=T[lang],i=NAV.indexOf(c),pv=NAV[i-1],nx=NAV[i+1];
+  return `<div class="pager">${pv?`<a href="#${pv.id}"><small class="caps">${t.prev}</small><b>${esc(nm(pv))}</b></a>`:"<span></span>"}
+    ${nx?`<a class="next" href="#${nx.id}"><small class="caps">${t.next}</small><b>${esc(nm(nx))}</b></a>`:"<span></span>"}</div>`;
+}
+function centerChip(){const on=$("#cat .chips a.on");if(on){const bar=on.parentElement;bar.scrollLeft=on.offsetLeft-bar.clientWidth/2+on.clientWidth/2}}
+function showBev(focusId){
+  const t=T[lang];
+  $("#cat").innerHTML=`<div class="banner"><img src="img/${BEV.img}.jpg" alt="">
+      <div class="t"><img class="mk" src="img/logo-mark-beige.png" alt=""><h1>${esc(nm(BEV))}</h1></div></div>
+    ${chipsHTML(focusId,DRINKS)}
+    <div class="gut"><div class="bev">${DRINKS.map(c=>`<section class="sub" id="${c.id}">
+        <h2>${esc(nm(c))}</h2><ul class="items">${c.items.map(itemHTML).join("")}</ul></section>`).join("")}</div>
+      <p class="cur">${t.cur}</p>${pagerHTML(BEV)}</div>`;
+  centerChip();
+}
+function itemHTML(it){
+  const [en,ar,p,dEn,dAr]=it;const n=lang==="ar"?ar:en;const d=lang==="ar"?dAr:dEn;
+  return `<li class="item"><div class="row"><span class="nm">${esc(n)}</span><span class="lead"></span><span class="pr">${p}</span></div>${d?`<p>${esc(d)}</p>`:""}</li>`;
+}
+function showCat(c){
+  const t=T[lang];
+  $("#cat").innerHTML=`<div class="banner"><img src="img/${c.img}.jpg" alt="" class="${c.tall?"tall":""}">
+      <div class="t"><span class="caps">${t.items(c.items.length)}</span><h1>${esc(nm(c))}</h1></div></div>
+    ${chipsHTML(c.id,NAV)}
+    <div class="gut"><div class="list">
+      ${c.note?`<p class="note">${esc(c.note[lang==="ar"?1:0])}</p>`:""}
+      <ul class="items">${c.items.map(itemHTML).join("")}</ul>
+      <p class="cur">${t.cur}</p></div>${pagerHTML(c)}</div>`;
+  centerChip();
+}
+let onBev=false;
+function route(){
+  const id=location.hash.slice(1);
+  const food=MENU.find(x=>x.id===id&&x.g==="food");
+  const drink=DRINKS.find(x=>x.id===id);
+  const bev=id==="beverages"||!!drink;
+  const inCat=!!food||bev;
+  $("#start").hidden=inCat||id==="menu";$("#find").hidden=$("#start").hidden||!$("#find").dataset.has;document.body.classList.toggle("splash",!$("#start").hidden);if(!$("#start").hidden){const st=$("#start");st.classList.remove("play");void st.offsetWidth;st.classList.add("play")}$("#grid").hidden=id!=="menu";$("#best").hidden=id!=="menu";$("#cat").hidden=!inCat;
+  $("#back").hidden=!inCat;$("#spacer").hidden=inCat;
+  document.documentElement.style.setProperty("--top-h",$("#top").offsetHeight+"px");
+  if(food){showCat(food);onBev=false;scrollTo(0,0);return}
+  if(bev){
+    if(!onBev||!$("#cat .bev"))showBev(drink?drink.id:null);
+    else document.querySelectorAll("#cat .chips a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
+    onBev=true;centerChip();
+    if(drink){const el=document.getElementById(drink.id);requestAnimationFrame(()=>el.scrollIntoView({behavior:"smooth"}))}else scrollTo(0,0);
+    return}
+  onBev=false;scrollTo(0,0);
+}
+function setLang(l){lang=l;onBev=false;try{localStorage.setItem("bru-lang",l)}catch(e){}applyLang();route()}
+document.addEventListener("click",e=>{
+  const p=e.target.closest("[data-lang]");
+  if(p){lang=p.dataset.lang;try{localStorage.setItem("bru-lang",lang)}catch(_){}applyLang();
+    if(location.hash==="#menu")route();else location.hash="menu"}
+});
+$("#langBtn").addEventListener("click",()=>setLang(lang==="ar"?"en":"ar"));
+$("#footLang").addEventListener("click",()=>setLang(lang==="ar"?"en":"ar"));
+addEventListener("hashchange",route);
+addEventListener("resize",()=>document.documentElement.style.setProperty("--top-h",$("#top").offsetHeight+"px"));
+/* ===== most ordered plates ===== */
+const BEST=[
+ {img:"escalope",en:"Beef Escalope Pané",ar:"إسكالوب بانيه لحم",item:"Escalope Pané Plate",g:"#c47a2c"},
+ {img:"ribeye",en:"Rib-Eye Beef Platter",ar:"طبق ريب آي",item:"Rib Eye Steak",g:"#a6452b"},
+ {img:"cordonbleu",en:"Cordon Bleu",ar:"كوردن بلو",item:"Cordon Bleu Plate",g:"#c9a13c"},
+ {img:"beefmushroom",en:"Beef Mushroom Fillet",ar:"فيليه لحم بالمشروم",item:"Beef Fillet Plate",g:"#8a6a33"}
+];
+const MAIN=MENU.find(c=>c.id==="main-dishes");
+BEST.forEach(b=>{b.it=MAIN.items.find(i=>i[0]===b.item)});
+let bi=0,bOpen=false;
+const best=document.getElementById("best");
+document.getElementById("plates").innerHTML=BEST.map((b,i)=>`<button class="plate" data-i="${i}" aria-label="${esc(b.en)}"><img src="img/best-${b.img}.webp" alt="" draggable="false"></button>`).join("");
+document.getElementById("pips").innerHTML=BEST.map(()=>"<i></i>").join("");
+function layoutBest(){
+  const s=lang==="ar"?-1:1, n=BEST.length;
+  document.querySelectorAll(".plate").forEach(el=>{
+    const i=+el.dataset.i; let d=((i-bi)%n+n)%n; if(d>n/2)d-=n;
+    let t,o=1,z=1;
+    if(bOpen){ if(d===0){t=`translate(${s*55-50}%,-50%) rotate(${s*-8}deg) scale(1.12)`;z=3}
+               else {t=`translate(${s*d*240-50}%,-50%) scale(.5)`;o=0} }
+    else if(d===0){t="translate(-50%,-50%) rotate(0deg) scale(1)";z=3}
+    else if(Math.abs(d)===1){t=`translate(${s*d*70-50}%,-50%) rotate(${s*d*16}deg) scale(.6)`;o=.9;z=2}
+    else {t=`translate(${s*Math.sign(d)*230-50}%,-50%) rotate(${s*d*30}deg) scale(.4)`;o=0}
+    el.style.setProperty("--t",t);el.style.setProperty("--o",o);el.style.setProperty("--z",z);
+    el.classList.toggle("cur",d===0);el.tabIndex=d===0?0:-1;
+  });
+  const b=BEST[bi],t=T[lang],cur=lang==="ar"?"ج.م":"EGP";
+  best.style.setProperty("--g",b.g);best.classList.toggle("open",bOpen);
+  document.getElementById("bestName").textContent=lang==="ar"?b.ar:b.en;
+  document.getElementById("bestSub").textContent=`${b.it[2]} ${cur} · ${t.tap}`;
+  document.querySelectorAll("#pips i").forEach((p,i)=>p.classList.toggle("on",i===bi));
+  document.getElementById("info").innerHTML=`<button class="backc" id="bestBack" aria-label="${t.prev}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <ul class="tags">${t.tags.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <h3>${esc(lang==="ar"?b.ar:b.en)}</h3><p>${esc(lang==="ar"?b.it[4]:b.it[3])}</p>
+    <div class="big">${b.it[2]}<small>${cur}</small></div>
+    <a href="#main-dishes">${t.seeAll}</a>`;
+  document.getElementById("bestBack").addEventListener("click",e=>{e.stopPropagation();bOpen=false;layoutBest()});
+}
+function goBest(k){bi=(bi+k+BEST.length)%BEST.length;bOpen=false;best.classList.add("used");layoutBest()}
+document.getElementById("bestPrev").addEventListener("click",()=>goBest(lang==="ar"?1:-1));
+document.getElementById("bestNext").addEventListener("click",()=>goBest(lang==="ar"?-1:1));
+let px=null,py=0;
+const stage=document.getElementById("stage");
+stage.addEventListener("pointerdown",e=>{px=e.clientX;py=e.clientY});
+stage.addEventListener("pointerup",e=>{
+  if(px===null)return; const dx=e.clientX-px,dy=e.clientY-py; px=null;
+  if(e.target.closest(".info"))return;
+  const s=lang==="ar"?-1:1;
+  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){goBest(dx<0?s:-s);return}
+  const pl=e.target.closest(".plate"); if(!pl)return;
+  const i=+pl.dataset.i; best.classList.add("used");
+  if(i===bi){bOpen=!bOpen;layoutBest()} else {bi=i;bOpen=false;layoutBest()}
+});
+stage.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&e.target.classList.contains("cur")){e.preventDefault();bOpen=!bOpen;best.classList.add("used");layoutBest()}
+  if(e.key==="Escape"&&bOpen){bOpen=false;layoutBest()}
+});
+
+applyLang();route();
+</script>
+
+</body>
+</html>
