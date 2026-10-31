@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BRÜ | Menu</title>
-<meta name="description" content="BRÜ menu — breakfast, bakery, main dishes, coffee and drinks. Plaza España Mall.">
+<meta name="description" content="BRÜ menu: breakfast, bakery, main dishes, coffee and drinks. Plaza España Mall.">
 <meta name="theme-color" content="#231f20">
 <meta property="og:title" content="BRÜ | Menu">
-<meta property="og:description" content="Brewed To Be Remembered — see the full menu and prices.">
+<meta property="og:description" content="Brewed To Be Remembered. See the full menu and prices.">
 <meta property="og:image" content="img/og.jpg">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
@@ -233,6 +233,24 @@ body.splash footer .facts,body.splash footer .socials{display:none}
 body.splash footer .in{grid-template-columns:1fr;justify-items:center;text-align:center}
 .dir{margin-top:4px;border:1px solid var(--latte);padding:10px 22px;color:var(--latte);transition:background .2s,color .2s}
 .dir:hover{background:var(--latte);color:var(--bean)}
+
+/* ---------- dish photo grid (category pages with photos) ---------- */
+.dishes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 18px}
+@media (min-width:760px){.dishes{grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 30px}}
+.dish{display:flex;flex-direction:column;gap:6px;min-width:0}
+.dish .ph{aspect-ratio:1/1;display:grid;place-items:center;margin-bottom:6px}
+.dish .ph img{max-width:100%;max-height:100%;width:auto;height:auto;filter:drop-shadow(0 14px 16px rgba(43,34,32,.22));transition:transform .4s ease}
+.dish:hover .ph img{transform:scale(1.04) rotate(-2deg)}
+.dish h4{margin:0;font-family:var(--sans);font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;line-height:1.25;color:var(--ink)}
+html[lang="ar"] .dish h4{letter-spacing:0;font-size:16px}
+.dish p{margin:0;font-size:14px;line-height:1.4;color:var(--muted)}
+html[lang="ar"] .dish p{font-family:"Tajawal",sans-serif;font-size:13.5px}
+.dish .pr{margin-top:2px;font-family:var(--sans);font-weight:800;font-size:16px;color:var(--bean);font-variant-numeric:tabular-nums}
+.dish .pr small{font-size:11px;font-weight:600;letter-spacing:.1em;margin-inline-start:4px;color:var(--muted)}
+.list.wide{max-width:1000px}
+.more{max-width:720px;margin:48px auto 0;padding-top:26px;border-top:1px solid var(--rule)}
+.more h5{margin:0 0 18px;color:var(--bean)}
+
 /* ---------- footer ---------- */
 footer{background:var(--black);color:var(--latte)}
 footer .in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:24px 36px;padding-block:38px calc(30px + env(safe-area-inset-bottom,0px))}
@@ -475,9 +493,9 @@ function renderInfo(){
   const dir=$("#dir");dir.hidden=!INFO.map;if(INFO.map){dir.href=INFO.map;dir.textContent=T[L].dirs}
 }
 const T={
- en:{bestEy:"BRÜ favourites",best:"Most ordered",tags:["Main dish","Two sides included","Bestseller"],seeAll:"All main dishes",tap:"Tap the plate for details",findus:"Find us",dirs:"Get directions",other:"العربية",cats:"Menu",home:"Home",menu:"Menu",food:"Food",drinks:"Drinks",items:n=>n+" items",prev:"Previous",next:"Next",
+ en:{more:"Also on the menu",bestEy:"BRÜ favourites",best:"Most ordered",tags:["Main dish","Two sides included","Bestseller"],seeAll:"All main dishes",tap:"Tap the plate for details",findus:"Find us",dirs:"Get directions",other:"العربية",cats:"Menu",home:"Home",menu:"Menu",food:"Food",drinks:"Drinks",items:n=>n+" items",prev:"Previous",next:"Next",
      cur:"All prices in Egyptian pounds",copy:"© 2026 BRÜ · Brewed To Be Remembered · Prices in EGP"},
- ar:{bestEy:"مفضلات BRÜ",best:"الأكثر طلباً",tags:["طبق رئيسي","مع طبقين جانبيين","الأكثر مبيعاً"],seeAll:"كل الأطباق الرئيسية",tap:"دوس على الطبق للتفاصيل",findus:"زورونا",dirs:"افتح الخريطة",other:"English",cats:"المنيو",home:"الرئيسية",menu:"المنيو",food:"الأكل",drinks:"المشروبات",items:n=>n+" صنف",prev:"السابق",next:"التالي",
+ ar:{more:"كمان في المنيو",bestEy:"مفضلات BRÜ",best:"الأكثر طلباً",tags:["طبق رئيسي","مع طبقين جانبيين","الأكثر مبيعاً"],seeAll:"كل الأطباق الرئيسية",tap:"دوس على الطبق للتفاصيل",findus:"زورونا",dirs:"افتح الخريطة",other:"English",cats:"المنيو",home:"الرئيسية",menu:"المنيو",food:"الأكل",drinks:"المشروبات",items:n=>n+" صنف",prev:"السابق",next:"التالي",
      cur:"كل الأسعار بالجنيه المصري",copy:"© 2026 BRÜ · الأسعار بالجنيه المصري"}
 };
 const $=s=>document.querySelector(s);
@@ -516,6 +534,14 @@ function showBev(focusId){
       <p class="cur">${t.cur}</p>${pagerHTML(BEV)}</div>`;
   centerChip();
 }
+
+/* dish photos, keyed by the English item name */
+const PHOTO={"Classic Spanish Omelette": "001", "Bacon Omelette": "002", "Mushroom Omelette": "003", "Creamy Cheese Omelette": "004", "Salmon Benedict": "005", "Bacon Benedict": "006", "Avocado Poached Eggs": "007", "English Breakfast": "008", "Pastrami Omelette": "009", "Scrambled Eggs": "010", "Sunny Side-Up": "011", "Oriental Breakfast": "012", "Croissant": "014", "Cheese Croissant": "015", "Cheese & Pastrami Croissant": "016", "Turkey & Cheese Croissant": "017", "Za’atar Croissant": "020", "Salmon Croissant": "019", "Chocolate / Nutella Croissant": "021", "Pistachio Croissant": "018", "Smoked Turkey Club": "024", "Chicken & Turkey Sandwich": "031", "Buffalo Chicken Sandwich": "030", "Chicken Cheese Sandwich": "029", "Smoked Salmon on Bagel": "022", "Halloumi Pesto": "023", "Spicy Chicken Fajita": "025", "Avocado Tuna Toast": "026", "Roast Beef": "027", "Tuna Sandwich": "028", "Classic Cheese Burger": "034", "Truffle Mushroom Burger": "035", "Bacon Mushroom Burger": "036", "Chicken Caesar Salad": "037", "Chicken Yogurt Salad": "038", "Tuna Salad": "039", "Greek Salad": "040", "Creamy Chicken": "041", "Creamy Mushroom": "042", "Creamy Chicken Mushroom": "043", "Cordon Bleu Plate": "048", "Chicken Mushroom Plate": "046", "Chicken Lemon Plate": "044", "Chicken Piccata Plate": "045", "Country Fried Chicken Plate": "047", "Escalope Pané Plate": "052", "Rib Eye Steak": "051", "Beef Piccata Plate": "049", "Beef Fillet Plate": "050", "Norwegian Grilled Salmon Fillet": "053", "Buffalo Chicken Tenders": "054", "Chicken Strips": "055", "French Fries": "056", "Cheese Melt Fries": "057", "Chicken Quesadillas": "058", "Beef & Cheese Quesadillas": "059", "Shrimp Creamy Pasta": "065", "Truffle Mushroom Pasta": "064", "Creamy Chicken Pesto Pasta": "061", "Alfredo Chicken Mushroom Pasta": "062", "Marinara Chicken Parmesan Pasta": "063", "Chocolate Cake": "080", "San Sebastian Cheesecake": "079", "Tiramisu": "071", "Molten Chocolate Cake": "072", "Cookies": "073", "Brownies": "075", "Plain Cheesecake": "076", "Red Velvet Cake": "078"};
+function dishHTML(it){
+  const [en,ar,p,dEn,dAr]=it;const n=lang==="ar"?ar:en;const d=lang==="ar"?dAr:dEn;const cur=lang==="ar"?"ج.م":"EGP";
+  return `<li class="dish"><div class="ph"><img src="img/d-${PHOTO[en]}.webp" alt="" loading="lazy"></div>
+    <h4>${esc(n)}</h4>${d?`<p>${esc(d)}</p>`:""}<div class="pr">${p}<small>${cur}</small></div></li>`;
+}
 function itemHTML(it){
   const [en,ar,p,dEn,dAr]=it;const n=lang==="ar"?ar:en;const d=lang==="ar"?dAr:dEn;
   return `<li class="item"><div class="row"><span class="nm">${esc(n)}</span><span class="lead"></span><span class="pr">${p}</span></div>${d?`<p>${esc(d)}</p>`:""}</li>`;
@@ -525,9 +551,11 @@ function showCat(c){
   $("#cat").innerHTML=`<div class="banner"><img src="img/${c.img}.jpg" alt="" class="${c.tall?"tall":""}">
       <div class="t"><span class="caps">${t.items(c.items.length)}</span><h1>${esc(nm(c))}</h1></div></div>
     ${chipsHTML(c.id,NAV)}
-    <div class="gut"><div class="list">
+    <div class="gut"><div class="list${c.items.some(i=>PHOTO[i[0]])?" wide":""}">
       ${c.note?`<p class="note">${esc(c.note[lang==="ar"?1:0])}</p>`:""}
-      <ul class="items">${c.items.map(itemHTML).join("")}</ul>
+      ${(()=>{const ph=c.items.filter(i=>PHOTO[i[0]]),rest=c.items.filter(i=>!PHOTO[i[0]]);
+        if(!ph.length)return `<ul class="items">${c.items.map(itemHTML).join("")}</ul>`;
+        return `<ul class="dishes">${ph.map(dishHTML).join("")}</ul>`+(rest.length?`<div class="more"><h5 class="caps">${t.more}</h5><ul class="items">${rest.map(itemHTML).join("")}</ul></div>`:"");})()}
       <p class="cur">${t.cur}</p></div>${pagerHTML(c)}</div>`;
   centerChip();
 }
