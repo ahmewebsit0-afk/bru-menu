@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>BRÜ — لوحة تحكم المنيو</title>
+<link rel="icon" type="image/png" href="img/icon.png">
+<style>
+:root{--black:#231f20;--bean:#4f2800;--latte:#f7dcbf;--paper:#fbf5ec;--ink:#2b2220;--muted:#85776b;--rule:#d9c7b1;--green:#2e7d32;--red:#b3261e;--amber:#8a6d00}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.6}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+a{color:var(--bean)}
+.hidden{display:none!important}
+/* login */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--black);padding:20px}
+#login .card{background:var(--paper);border-radius:12px;padding:32px 28px;max-width:380px;width:100%;text-align:center}
+#login h1{margin:0 0 4px;font-size:30px;color:var(--black);letter-spacing:.05em}
+#login p{color:var(--muted);margin:0 0 20px}
+#login input{width:100%;padding:12px;border:1px solid var(--rule);border-radius:8px;background:#fff;text-align:center;font-size:18px}
+#login button{width:100%;margin-top:12px;padding:12px;background:var(--black);color:var(--latte);border:0;border-radius:8px;font-weight:700}
+#login .err{color:var(--red);min-height:22px;margin-top:8px}
+/* shell */
+header.top{background:var(--black);color:var(--latte);padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+header.top .brand{font-size:24px;font-weight:800;letter-spacing:.06em}
+header.top .sub{opacity:.75;font-size:14px}
+header.top .sp{flex:1}
+header.top .btn{background:transparent;color:var(--latte);border:1px solid rgba(247,220,191,.5);border-radius:6px;padding:7px 12px;text-decoration:none;font-size:14px}
+header.top .btn:hover{background:var(--latte);color:var(--black)}
+header.top .btn.warn{border-color:#e57373;color:#ffcdd2}
+nav.tabs{display:flex;gap:4px;background:#efe6d8;padding:8px 12px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+nav.tabs button{border:0;background:transparent;padding:9px 16px;border-radius:8px;font-weight:700;color:var(--ink)}
+nav.tabs button.on{background:var(--black);color:var(--latte)}
+nav.tabs .dirty{margin-inline-start:auto;align-self:center;font-weight:700;color:var(--amber)}
+main{max-width:1060px;margin:0 auto;padding:20px 16px 60px}
+section.tab{display:none}
+section.tab.on{display:block}
+h2{margin:0 0 14px;font-size:22px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:18px;margin-bottom:16px}
+.muted{color:var(--muted);font-size:14px}
+.btn{background:var(--black);color:var(--latte);border:0;border-radius:8px;padding:10px 18px;font-weight:700}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--rule)}
+.btn.green{background:var(--green);color:#fff}
+.btn.red{background:var(--red);color:#fff}
+.btn.sm{padding:6px 12px;font-size:14px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+input[type=text],input[type=number],input[type=password],input[type=url],select,textarea{width:100%;padding:10px;border:1px solid var(--rule);border-radius:8px;background:#fff}
+textarea{min-height:70px;resize:vertical}
+label{display:block;font-weight:700;margin:12px 0 5px}
+label small{font-weight:400;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+/* menu tab */
+.cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.cats button{border:1px solid var(--rule);background:#fff;border-radius:20px;padding:6px 14px;font-size:14px}
+.cats button.on{background:var(--black);color:var(--latte);border-color:var(--black)}
+table.items{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+table.items th,table.items td{padding:10px 12px;border-bottom:1px solid #eee;text-align:right;vertical-align:middle}
+table.items th{background:#f5ecdf;font-size:14px}
+table.items img{width:56px;height:56px;object-fit:contain;background:var(--paper);border-radius:8px}
+table.items .price{font-weight:800;white-space:nowrap}
+.rowbtns{display:flex;gap:6px;flex-wrap:wrap}
+.editor{display:none}
+.editor.on{display:block}
+.editor img.prev{max-width:220px;max-height:220px;object-fit:contain;background:var(--paper);border-radius:10px;border:1px solid var(--rule)}
+/* publish log */
+#publog{background:#111;color:#d7ffd7;border-radius:10px;padding:14px;font-family:monospace;font-size:13px;white-space:pre-wrap;min-height:80px;direction:ltr;text-align:left}
+#publog .e{color:#ffb4ab}
+/* analytics */
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.stat{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px;text-align:center}
+.stat .n{font-size:32px;font-weight:800}
+.stat .l{color:var(--muted);font-size:14px}
+/* qr */
+#qrcode{display:flex;justify-content:center;padding:18px;background:#fff;border:1px solid var(--rule);border-radius:12px}
+#qrcode img{width:260px;height:260px}
+.qrwrap{text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ======== LOGIN ======== -->
+<div id="login">
+  <div class="card">
+    <h1>BRÜ</h1>
+    <p>لوحة تحكم المنيو — للعميل فقط</p>
+    <input type="password" id="pw" placeholder="كلمة السر" autocomplete="current-password">
+    <button id="loginBtn">دخول</button>
+    <div class="err" id="loginErr"></div>
+    <p class="muted" style="margin-top:14px">لو نسيت كلمة السر، تواصل مع أحمد.</p>
+  </div>
+</div>
+
+<!-- ======== APP ======== -->
+<div id="app" class="hidden">
+<header class="top">
+  <span class="brand">BRÜ</span>
+  <span class="sub">لوحة تحكم المنيو</span>
+  <span class="sp"></span>
+  <a class="btn" href="https://bruegypt.com/" target="_blank" rel="noopener">عرض الموقع ↗</a>
+  <button class="btn warn" id="logoutBtn">خروج</button>
+</header>
+<nav class="tabs">
+  <button data-tab="menu" class="on">🍽️ المنيو</button>
+  <button data-tab="publish">⬆️ النشر</button>
+  <button data-tab="analytics">📊 التحليلات</button>
+  <button data-tab="qr">🔳 QR</button>
+  <button data-tab="settings">⚙️ الإعدادات</button>
+  <span class="dirty hidden" id="dirtyBadge">● في تعديلات لم تُنشر</span>
+</nav>
+<main>
+
+<!-- ======== MENU TAB ======== -->
+<section class="tab on" id="tab-menu">
+  <h2>المنيو <span class="muted" id="menuCount"></span></h2>
+  <div class="card">
+    <div class="cats" id="catList"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <button class="btn sm" id="addItemBtn">+ إضافة صنف</button>
+      <button class="btn sm ghost" id="addCatBtn">+ إضافة قسم</button>
+      <button class="btn sm ghost" id="delCatBtn">حذف القسم الحالي</button>
+    </div>
+    <div id="itemsWrap"><p class="muted">جارٍ تحميل المنيو…</p></div>
+  </div>
+
+  <div class="card editor" id="editor">
+    <h2 id="editorTitle">تعديل صنف</h2>
+    <div class="grid2">
+      <div>
+        <label>الاسم بالإنجليزي</label>
+        <input type="text" id="fEn" dir="ltr">
+        <label>الاسم بالعربي</label>
+        <input type="text" id="fAr">
+        <label>السعر (جنيه)</label>
+        <input type="number" id="fPrice" min="0" step="1" dir="ltr">
+      </div>
+      <div>
+        <label>الوصف بالإنجليزي <small>(اختياري)</small></label>
+        <textarea id="fDescEn" dir="ltr"></textarea>
+        <label>الوصف بالعربي <small>(اختياري)</small></label>
+        <textarea id="fDescAr"></textarea>
+      </div>
+    </div>
+    <label>الصورة</label>
+    <div style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+      <img class="prev" id="fPhotoPrev" alt="">
+      <div>
+        <input type="file" id="fPhoto" accept="image/*">
+        <p class="muted">الصورة الجديدة بتتحول لـ WebP تلقائياً وبتترفع مع النشر.<br>لو الصنف من غير صورة، هيظهر في قائمة نصية في المنيو.</p>
+        <button class="btn sm ghost" id="fPhotoRemove">إزالة الصورة من الصنف</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap">
+      <button class="btn green" id="saveItemBtn">💾 حفظ الصنف</button>
+      <button class="btn ghost" id="cancelEditBtn">إلغاء</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======== PUBLISH TAB ======== -->
+<section class="tab" id="tab-publish">
+  <h2>النشر على الموقع</h2>
+  <div class="card">
+    <p>التعديلات اللي بتعملها في اللوحة بتتحفظ هنا الأول، ومش بتظهر على الموقع إلا لما تدوس <b>نشر</b>. النشر بيحدّث الموقع الحي في حوالي دقيقة.</p>
+    <div id="changesList"><p class="muted">لا توجد تعديلات معلّقة.</p></div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn green" id="publishBtn">⬆️ نشر التعديلات الآن</button>
+      <button class="btn ghost" id="discardBtn">تراجع عن كل التعديلات</button>
+    </div>
+    <p class="muted" style="margin-top:10px">للنشر لازم يكون التوكن مضبوط في الإعدادات (مرة واحدة بس).</p>
+  </div>
+  <div class="card">
+    <h2 style="font-size:18px">سجل النشر</h2>
+    <div id="publog">جاهز للنشر.</div>
+  </div>
+</section>
+
+<!-- ======== ANALYTICS TAB ======== -->
+<section class="tab" id="tab-analytics">
+  <h2>التحليلات وعدد الدخول</h2>
+  <div class="statgrid">
+    <div class="stat"><div class="n" id="statSite">—</div><div class="l">حالة الموقع</div></div>
+    <div class="stat"><div class="n" id="statUpdated">—</div><div class="l">آخر تحديث للمنيو</div></div>
+    <div class="stat"><div class="n" id="statItems">—</div><div class="l">عدد الأصناف</div></div>
+    <div class="stat"><div class="n" id="statCats">—</div><div class="l">عدد الأقسام</div></div>
+  </div>
+  <div class="card">
+    <h2 style="font-size:18px">عدد الزيارات</h2>
+    <p>الزيارات التفصيلية (عدد الدخول اليومي، الأيام، الأجهزة، أكثر الأقسام زيارة) موجودة في <b>Google Analytics</b>. افتحها من هنا:</p>
+    <p><a class="btn" id="gaLink" href="https://analytics.google.com/" target="_blank" rel="noopener">فتح Google Analytics ↗</a></p>
+    <p class="muted" id="gaNote">لو لسه Google Analytics مش متركّب على الموقع، تواصل مع أحمد عشان يركّبه — بعدها الأرقام بتظهر هنا في لوحة جوجل.</p>
+  </div>
+</section>
+
+<!-- ======== QR TAB ======== -->
+<section class="tab" id="tab-qr">
+  <h2>كود QR للمنيو</h2>
+  <div class="card qrwrap">
+    <div id="qrcode"></div>
+    <p><b id="qrUrl">https://bruegypt.com/</b></p>
+    <label style="text-align:right">الرابط (غيّره لو عايز QR لقسم معيّن أو رابط تاني)</label>
+    <select id="qrTarget"></select>
+    <input type="url" id="qrCustom" dir="ltr" placeholder="https://bruegypt.com/" style="margin-top:8px">
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" id="qrDownload">⬇️ تنزيل QR كصورة</button>
+      <button class="btn ghost" id="qrPrint">🖨️ طباعة</button>
+    </div>
+    <p class="muted">اطبع الكود وحطه على الترابيزات أو على باب المطعم — العميل يمسحه بالموبايل ويفتح المنيو على طول.</p>
+  </div>
+</section>
+
+<!-- ======== SETTINGS TAB ======== -->
+<section class="tab" id="tab-settings">
+  <h2>الإعدادات</h2>
+  <div class="card">
+    <h2 style="font-size:18px">النشر على GitHub</h2>
+    <p class="muted">التوكن ده مفتاح النشر — بيتخزن في المتصفح ده بس، ومش بيتبعت لأي حد. من غيره النشر مش هيشتغل.</p>
+    <label>GitHub Token <small>(Fine-grained PAT — صلاحية Contents: Write على ريبو bru-menu فقط)</small></label>
+    <input type="password" id="setToken" dir="ltr" placeholder="ghp_... أو github_pat_...">
+    <div class="grid2">
+      <div><label>Owner</label><input type="text" id="setOwner" value="ahmewebsit0-afk" dir="ltr"></div>
+      <div><label>Repo</label><input type="text" id="setRepo" value="bru-menu" dir="ltr"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn" id="saveSettingsBtn">💾 حفظ الإعدادات</button>
+      <button class="btn ghost" id="testTokenBtn">اختبار الاتصال</button>
+    </div>
+    <p id="settingsMsg" class="muted"></p>
+  </div>
+  <div class="card">
+    <h2 style="font-size:18px">الأمان</h2>
+    <p class="muted">كلمة سر اللوحة الحالية بتتغير عن طريق أحمد. لو عايز تغيّرها، قوله. متشاركش التوكن ولا كلمة السر مع حد غير اللي بيدير المنيو.</p>
+    <p class="muted">رابط اللوحة: <a href="https://bruegypt.com/admin.html" target="_blank" rel="noopener">bruegypt.com/admin.html</a></p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+"use strict";
+/* ================= BRÜ admin dashboard ================= */
+const SITE_URL = "https://bruegypt.com/";
+const PW_HASH = "07e15c0073810c825953b1dbb7a2c085624b67d2e3f4a36780a6546d3d53b3aa"; // sha256("bru2026") — ask Ahmed to change it
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* ---------- state ---------- */
+let MENU = [], PHOTOS = {};
+let origHtml = "", menuSpan = null, photoSpan = null;
+let curCat = 0, editing = null; // editing: {catIdx, itemIdx} or {catIdx, itemIdx:-1} for new
+let newPhoto = null; // {num, b64, mime} pending upload
+let photoToRemove = false;
+let changes = [];
+let settings = JSON.parse(localStorage.getItem("bruAdminSettings") || "{}");
+settings.owner = settings.owner || "ahmewebsit0-afk";
+settings.repo = settings.repo || "bru-menu";
+let published = false;
+
+function log(msg, isErr){
+  const el = $("#publog");
+  const line = document.createElement("div");
+  if(isErr) line.className = "e";
+  line.textContent = (isErr ? "✖ " : "• ") + msg;
+  el.appendChild(line);
+  el.scrollTop = el.scrollHeight;
+}
+function markDirty(text){
+  if(text) changes.push(text);
+  $("#dirtyBadge").classList.toggle("hidden", changes.length === 0);
+  renderChanges();
+}
+function renderChanges(){
+  const el = $("#changesList");
+  if(!changes.length){ el.innerHTML = '<p class="muted">لا توجد تعديلات معلّقة.</p>'; return; }
+  el.innerHTML = "<ul>" + changes.map(c => "<li>" + escHtml(c) + "</li>").join("") + "</ul>";
+}
+function escHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+/* ---------- login ---------- */
+async function sha256hex(str){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
+}
+async function tryLogin(){
+  const pw = $("#pw").value;
+  if(!pw) return;
+  const h = await sha256hex(pw);
+  if(h === PW_HASH){
+    sessionStorage.setItem("bruAdminAuth","1");
+    $("#login").classList.add("hidden");
+    $("#app").classList.remove("hidden");
+    loadMenu();
+  } else {
+    $("#loginErr").textContent = "كلمة السر غلط — جرّب تاني.";
+  }
+}
+$("#loginBtn").addEventListener("click", tryLogin);
+$("#pw").addEventListener("keydown", e => { if(e.key === "Enter") tryLogin(); });
+$("#logoutBtn").addEventListener("click", () => { sessionStorage.removeItem("bruAdminAuth"); location.reload(); });
+if(sessionStorage.getItem("bruAdminAuth") === "1"){
+  $("#login").classList.add("hidden");
+  $("#app").classList.remove("hidden");
+}
+
+/* ---------- tabs ---------- */
+$$("nav.tabs button[data-tab]").forEach(b => b.addEventListener("click", () => {
+  $$("nav.tabs button[data-tab]").forEach(x => x.classList.toggle("on", x === b));
+  $$("section.tab").forEach(s => s.classList.toggle("on", s.id === "tab-" + b.dataset.tab));
+  if(b.dataset.tab === "qr") renderQR();
+  if(b.dataset.tab === "analytics") loadAnalytics();
+}));
+
+/* ---------- load & parse live menu ---------- */
+function braceMatch(text, start){
+  const open = text[start], close = open === "[" ? "]" : "}";
+  let depth = 0, i = start, q = null, esc = false;
+  while(i < text.length){
+    const ch = text[i];
+    if(q){
+      if(esc) esc = false; else if(ch === "\\") esc = true; else if(ch === q) q = null;
+    } else {
+      if(ch === '"' || ch === "'" || ch === "`") q = ch;
+      else if(ch === open) depth++;
+      else if(ch === close){ depth--; if(depth === 0) return i + 1; }
+    }
+    i++;
+  }
+  throw new Error("brace match failed");
+}
+async function loadMenu(){
+  try{
+    const res = await fetch("index.html?_=" + Date.now());
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    origHtml = await res.text();
+    const js = origHtml;
+    const getStr = (name) => {
+      const m = js.match(new RegExp("const " + name + '="((?:[^"\\\\]|\\\\.)*)";'));
+      return m ? JSON.parse('"' + m[1] + '"') : "";
+    };
+    const sidesEn = getStr("SIDES_EN"), sidesAr = getStr("SIDES_AR");
+    const mi = js.indexOf("const MENU=");
+    const mb = js.indexOf("[", mi);
+    const me = braceMatch(js, mb);
+    menuSpan = [mi, me];
+    const menuSrc = js.slice(mi, me);
+    const pi = js.indexOf("PHOTO=");
+    const pb = js.indexOf("{", pi);
+    const pe = braceMatch(js, pb);
+    photoSpan = [pi, pe];
+    const photoSrc = js.slice(pi, pe);
+    MENU = new Function("SIDES_EN","SIDES_AR","return (" + menuSrc.replace(/^const MENU=/,"") + ")")(sidesEn, sidesAr);
+    PHOTOS = new Function("return (" + photoSrc.replace(/^PHOTO=/,"") + ")")();
+    $("#menuCount").textContent = "— " + MENU.length + " قسم، " + MENU.reduce((n,c)=>n+c.items.length,0) + " صنف";
+    renderCats();
+    renderItems();
+    fillQrTargets();
+    loadAnalytics();
+  }catch(err){
+    $("#itemsWrap").innerHTML = '<p style="color:#b3261e">مش قادر أحمّل المنيو من الموقع: ' + escHtml(err.message) + '</p>';
+  }
+}
+function renderCats(){
+  const el = $("#catList");
+  el.innerHTML = "";
+  MENU.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.textContent = (c.ar || c.en) + " (" + c.items.length + ")";
+    b.className = i === curCat ? "on" : "";
+    b.addEventListener("click", () => { curCat = i; renderCats(); renderItems(); hideEditor(); });
+    el.appendChild(b);
+  });
+}
+function photoUrlFor(name){
+  const num = PHOTOS[name];
+  return num ? ("img/d-" + num + ".webp") : "";
+}
+function renderItems(){
+  const c = MENU[curCat];
+  if(!c){ $("#itemsWrap").innerHTML = ""; return; }
+  let html = '<table class="items"><tr><th>صورة</th><th>الاسم</th><th>السعر</th><th></th></tr>';
+  c.items.forEach((it, idx) => {
+    const ph = photoUrlFor(it[0]);
+    html += "<tr><td>" + (ph ? '<img src="' + ph + '" alt="">' : '<span class="muted">—</span>') + "</td>"
+      + "<td><b>" + escHtml(it[0]) + "</b><br><span class='muted'>" + escHtml(it[1] || "") + "</span></td>"
+      + "<td class='price'>" + escHtml(it[2]) + " ج</td>"
+      + "<td><div class='rowbtns'><button class='btn sm' data-edit='" + idx + "'>تعديل</button>"
+      + "<button class='btn sm red' data-del='" + idx + "'>حذف</button></div></td></tr>";
+  });
+  html += "</table>";
+  $("#itemsWrap").innerHTML = html;
+  $$("#itemsWrap [data-edit]").forEach(b => b.addEventListener("click", () => openEditor(curCat, +b.dataset.edit)));
+  $$("#itemsWrap [data-del]").forEach(b => b.addEventListener("click", () => deleteItem(curCat, +b.dataset.del)));
+}
+
+/* ---------- editor ---------- */
+function openEditor(catIdx, itemIdx){
+  editing = {catIdx, itemIdx};
+  newPhoto = null; photoToRemove = false;
+  const it = itemIdx >= 0 ? MENU[catIdx].items[itemIdx] : ["","",0,"",""];
+  $("#editorTitle").textContent = itemIdx >= 0 ? "تعديل صنف: " + it[0] : "إضافة صنف جديد في " + (MENU[catIdx].ar || MENU[catIdx].en);
+  $("#fEn").value = it[0] || ""; $("#fAr").value = it[1] || ""; $("#fPrice").value = it[2] || 0;
+  $("#fDescEn").value = it[3] || ""; $("#fDescAr").value = it[4] || "";
+  $("#fPhoto").value = "";
+  const ph = itemIdx >= 0 ? photoUrlFor(it[0]) : "";
+  $("#fPhotoPrev").src = ph || "";
+  $("#fPhotoPrev").style.display = ph ? "block" : "none";
+  $("#editor").classList.add("on");
+  $("#editor").scrollIntoView({behavior:"smooth"});
+}
+function hideEditor(){ $("#editor").classList.remove("on"); editing = null; }
+$("#cancelEditBtn").addEventListener("click", hideEditor);
+$("#fPhoto").addEventListener("change", async (e) => {
+  const f = e.target.files[0];
+  if(!f) return;
+  try{
+    const b64 = await fileToWebpB64(f);
+    newPhoto = {b64};
+    photoToRemove = false;
+    $("#fPhotoPrev").src = "data:image/webp;base64," + b64;
+    $("#fPhotoPrev").style.display = "block";
+  }catch(err){ alert("مش قادر أقرأ الصورة: " + err.message); }
+});
+$("#fPhotoRemove").addEventListener("click", () => {
+  newPhoto = null; photoToRemove = true;
+  $("#fPhotoPrev").src = ""; $("#fPhotoPrev").style.display = "none";
+  $("#fPhoto").value = "";
+});
+function fileToWebpB64(file){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 1200;
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if(Math.max(w, h) > max){ const s = max / Math.max(w, h); w = Math.round(w*s); h = Math.round(h*s); }
+      const cv = document.createElement("canvas");
+      cv.width = w; cv.height = h;
+      cv.getContext("2d").drawImage(img, 0, 0, w, h);
+      cv.toBlob(b => {
+        if(!b) return reject(new Error("webp failed"));
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result).split(",")[1]);
+        r.onerror = () => reject(new Error("read failed"));
+        r.readAsDataURL(b);
+      }, "image/webp", 0.92);
+    };
+    img.onerror = () => reject(new Error("bad image"));
+    const r = new FileReader();
+    r.onload = () => { img.src = String(r.result); };
+    r.onerror = () => reject(new Error("read failed"));
+    r.readAsDataURL(file);
+  });
+}
+$("#saveItemBtn").addEventListener("click", () => {
+  if(!editing) return;
+  const en = $("#fEn").value.trim(), ar = $("#fAr").value.trim();
+  const price = parseInt($("#fPrice").value, 10);
+  if(!en || !ar || isNaN(price)){ alert("لازم الاسم بالإنجليزي والعربي والسعر."); return; }
+  const dEn = $("#fDescEn").value.trim(), dAr = $("#fDescAr").value.trim();
+  const item = (dEn || dAr) ? [en, ar, price, dEn, dAr] : [en, ar, price];
+  const c = MENU[editing.catIdx];
+  if(editing.itemIdx >= 0){
+    const old = c.items[editing.itemIdx];
+    const oldName = old[0];
+    c.items[editing.itemIdx] = item;
+    if(oldName !== en && PHOTOS[oldName] !== undefined){ PHOTOS[en] = PHOTOS[oldName]; delete PHOTOS[oldName]; }
+    markDirty("تعديل: " + en + " (" + price + " ج)");
+  } else {
+    c.items.push(item);
+    markDirty("إضافة: " + en + " (" + price + " ج) في " + (c.ar || c.en));
+  }
+  if(newPhoto){
+    const num = nextPhotoNum(en);
+    PHOTOS[en] = num;
+    newPhoto.num = num;
+    pendingPhotos[num] = newPhoto.b64;
+    markDirty("صورة جديدة للصنف " + en + " (d-" + num + ")");
+  }
+  if(photoToRemove && PHOTOS[en] !== undefined){
+    delete PHOTOS[en];
+    markDirty("إزالة صورة الصنف " + en);
+  }
+  hideEditor();
+  renderCats(); renderItems();
+});
+function nextPhotoNum(){
+  let max = 0;
+  Object.values(PHOTOS).forEach(v => { const n = parseInt(v, 10); if(n > max) max = n; });
+  return String(max + 1).padStart(3, "0");
+}
+let pendingPhotos = {}; // num -> b64 webp
+function deleteItem(catIdx, itemIdx){
+  const it = MENU[catIdx].items[itemIdx];
+  if(!confirm("حذف الصنف «" + it[0] + "» نهائياً؟")) return;
+  MENU[catIdx].items.splice(itemIdx, 1);
+  if(PHOTOS[it[0]] !== undefined) delete PHOTOS[it[0]];
+  markDirty("حذف: " + it[0]);
+  renderCats(); renderItems();
+}
+$("#addItemBtn").addEventListener("click", () => { if(MENU.length) openEditor(curCat, -1); });
+$("#addCatBtn").addEventListener("click", () => {
+  const en = prompt("اسم القسم بالإنجليزي:");
+  if(!en) return;
+  const ar = prompt("اسم القسم بالعربي:") || en;
+  const id = en.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || ("cat-" + Date.now());
+  MENU.push({id, g:"food", en, ar, img:"main", items:[]});
+  curCat = MENU.length - 1;
+  markDirty("إضافة قسم: " + ar);
+  renderCats(); renderItems();
+});
+$("#delCatBtn").addEventListener("click", () => {
+  const c = MENU[curCat];
+  if(!c) return;
+  if(!confirm("حذف القسم «" + (c.ar || c.en) + "» بكل أصنافه (" + c.items.length + " صنف)؟")) return;
+  c.items.forEach(it => { if(PHOTOS[it[0]] !== undefined) delete PHOTOS[it[0]]; });
+  MENU.splice(curCat, 1);
+  curCat = Math.max(0, curCat - 1);
+  markDirty("حذف قسم: " + (c.ar || c.en));
+  renderCats(); renderItems();
+});
+
+/* ---------- serialize back to index.html ---------- */
+function serializeMenu(){
+  const q = s => JSON.stringify(s == null ? "" : s);
+  const cats = MENU.map(c => {
+    const keys = Object.keys(c).filter(k => k !== "items");
+    const head = keys.map(k => k + ":" + (typeof c[k] === "number" ? c[k] : q(c[k]))).join(",");
+    const items = c.items.map(it => {
+      const hasDesc = (it[3] || it[4]);
+      return hasDesc ? "[" + q(it[0]) + "," + q(it[1]) + "," + it[2] + "," + q(it[3]||"") + "," + q(it[4]||"") + "]"
+                     : "[" + q(it[0]) + "," + q(it[1]) + "," + it[2] + "]";
+    }).join(",");
+    return " {" + head + ",items:[" + items + "]}";
+  }).join(",\n");
+  return "const MENU=[\n" + cats + "\n]";
+}
+function serializePhotos(){
+  const entries = Object.keys(PHOTOS).sort().map(k => JSON.stringify(k) + ': "' + PHOTOS[k] + '"');
+  return "PHOTO={" + entries.join(", ") + "}";
+}
+function buildNewHtml(){
+  let html = origHtml;
+  html = html.slice(0, menuSpan[0]) + serializeMenu() + html.slice(menuSpan[1]);
+  // recompute photo span after menu replacement
+  const pi2 = html.indexOf("PHOTO=");
+  const pb2 = html.indexOf("{", pi2);
+  const pe2 = braceMatch(html, pb2);
+  html = html.slice(0, pi2) + serializePhotos() + html.slice(pe2);
+  return html;
+}
+
+/* ---------- GitHub publish ---------- */
+function ghHeaders(){
+  return {
+    "Authorization": "Bearer " + (settings.token || ""),
+    "Accept": "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json"
+  };
+}
+function b64utf8(str){ return btoa(unescape(encodeURIComponent(str))); }
+async function ghGetFile(path){
+  const res = await fetch("https://api.github.com/repos/" + settings.owner + "/" + settings.repo + "/contents/" + path, {headers: ghHeaders()});
+  if(res.status === 404) return null;
+  if(!res.ok) throw new Error("GitHub " + res.status + " while reading " + path);
+  return res.json();
+}
+async function ghPutFile(path, b64, sha, message){
+  const body = {message, content: b64, branch: "main"};
+  if(sha) body.sha = sha;
+  const res = await fetch("https://api.github.com/repos/" + settings.owner + "/" + settings.repo + "/contents/" + path, {method: "PUT", headers: ghHeaders(), body: JSON.stringify(body)});
+  if(!res.ok){
+    let t = "";
+    try{ t = (await res.json()).message || ""; }catch(e){}
+    throw new Error("GitHub " + res.status + " " + t + " — " + path);
+  }
+  return res.json();
+}
+$("#publishBtn").addEventListener("click", async () => {
+  if(!changes.length){ alert("مفيش تعديلات عشان تتنشر."); return; }
+  if(!settings.token){ alert("حط التوكن في الإعدادات الأول."); return; }
+  const btn = $("#publishBtn");
+  btn.disabled = true;
+  $("#publog").innerHTML = "";
+  try{
+    log("بجهّز الملفات…");
+    const newHtml = buildNewHtml();
+    const cur = await ghGetFile("index.html");
+    log("برفع index.html…");
+    const r1 = await ghPutFile("index.html", b64utf8(newHtml), cur ? cur.sha : null, "Update menu via dashboard");
+    log("تم index.html — commit " + String(r1.commit.sha).slice(0, 7));
+    const nums = Object.keys(pendingPhotos);
+    for(const num of nums){
+      const path = "img/d-" + num + ".webp";
+      const existing = await ghGetFile(path);
+      log("برفع " + path + "…");
+      const r = await ghPutFile(path, pendingPhotos[num], existing ? existing.sha : null, "Add photo d-" + num + " via dashboard");
+      log("تم " + path + " — commit " + String(r.commit.sha).slice(0, 7));
+    }
+    pendingPhotos = {};
+    origHtml = newHtml;
+    // re-parse spans from new html
+    const mi = origHtml.indexOf("const MENU="); menuSpan = [mi, braceMatch(origHtml, origHtml.indexOf("[", mi))];
+    const pi = origHtml.indexOf("PHOTO="); photoSpan = [pi, braceMatch(origHtml, origHtml.indexOf("{", pi))];
+    changes = [];
+    markDirty();
+    log("✅ النشر خلص — الموقع هيتحدث في خلال دقيقة تقريباً.");
+    published = true;
+  }catch(err){
+    log("فشل النشر: " + err.message, true);
+    alert("فشل النشر: " + err.message);
+  }finally{
+    btn.disabled = false;
+  }
+});
+$("#discardBtn").addEventListener("click", () => {
+  if(!confirm("تراجع عن كل التعديلات اللي لسه متنشرتش؟")) return;
+  location.reload();
+});
+
+/* ---------- analytics ---------- */
+async function loadAnalytics(){
+  $("#statItems").textContent = MENU.length ? MENU.reduce((n,c)=>n+c.items.length,0) : "—";
+  $("#statCats").textContent = MENU.length || "—";
+  try{
+    const res = await fetch("index.html?_=" + Date.now(), {method: "HEAD"});
+    $("#statSite").textContent = res.ok ? "شغال ✅" : "مشكلة ⚠️";
+  }catch(e){ $("#statSite").textContent = "مشكلة ⚠️"; }
+  try{
+    const res = await fetch("https://api.github.com/repos/" + settings.owner + "/" + settings.repo + "/commits?per_page=1");
+    if(res.ok){
+      const j = await res.json();
+      const d = new Date(j[0].commit.committer.date);
+      $("#statUpdated").textContent = d.toLocaleDateString("ar-EG", {day:"numeric", month:"short"}) + " " + d.toLocaleTimeString("ar-EG", {hour:"2-digit", minute:"2-digit"});
+    }
+  }catch(e){ /* ignore */ }
+}
+
+/* ---------- QR ---------- */
+let qrObj = null;
+function fillQrTargets(){
+  const sel = $("#qrTarget");
+  sel.innerHTML = '<option value="' + SITE_URL + '">المنيو كامل — bruegypt.com</option>';
+  MENU.forEach(c => {
+    const o = document.createElement("option");
+    o.value = SITE_URL + "#" + c.id;
+    o.textContent = "قسم: " + (c.ar || c.en);
+    sel.appendChild(o);
+  });
+  const o2 = document.createElement("option");
+  o2.value = "custom";
+  o2.textContent = "رابط مخصص…";
+  sel.appendChild(o2);
+}
+function qrText(){
+  const v = $("#qrTarget").value;
+  if(v === "custom") return $("#qrCustom").value.trim() || SITE_URL;
+  return v;
+}
+function renderQR(){
+  if(typeof QRCode === "undefined"){ $("#qrcode").innerHTML = "<p class='muted'>مكتبة الـ QR لسه بتحمّل — جرّب تاني بعد ثواني.</p>"; return; }
+  const text = qrText();
+  $("#qrUrl").textContent = text;
+  $("#qrcode").innerHTML = "";
+  qrObj = new QRCode($("#qrcode"), {text, width: 260, height: 260, correctLevel: QRCode.CorrectLevel.M});
+}
+$("#qrTarget").addEventListener("change", renderQR);
+$("#qrCustom").addEventListener("input", renderQR);
+$("#qrDownload").addEventListener("click", () => {
+  const img = document.querySelector("#qrcode img");
+  const cv = document.querySelector("#qrcode canvas");
+  let url = "";
+  if(img) url = img.src;
+  else if(cv) url = cv.toDataURL("image/png");
+  if(!url){ alert("الـ QR لسه متعملش."); return; }
+  const a = document.createElement("a");
+  a.href = url; a.download = "bru-qr.png"; a.click();
+});
+$("#qrPrint").addEventListener("click", () => {
+  const img = document.querySelector("#qrcode img");
+  const cv = document.querySelector("#qrcode canvas");
+  const src = img ? img.src : (cv ? cv.toDataURL("image/png") : "");
+  if(!src) return;
+  const w = window.open("", "_blank");
+  w.document.write('<html><head><title>BRÜ QR</title></head><body style="text-align:center;font-family:sans-serif;padding:40px"><h1>BRÜ</h1><img src="' + src + '" style="width:320px;height:320px"><p style="font-size:22px">امسح الكود لفتح المنيو</p><p>bruegypt.com</p></body></html>');
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 400);
+});
+
+/* ---------- settings ---------- */
+function loadSettingsIntoForm(){
+  $("#setToken").value = settings.token || "";
+  $("#setOwner").value = settings.owner || "ahmewebsit0-afk";
+  $("#setRepo").value = settings.repo || "bru-menu";
+}
+loadSettingsIntoForm();
+$("#saveSettingsBtn").addEventListener("click", () => {
+  settings.token = $("#setToken").value.trim();
+  settings.owner = $("#setOwner").value.trim() || "ahmewebsit0-afk";
+  settings.repo = $("#setRepo").value.trim() || "bru-menu";
+  localStorage.setItem("bruAdminSettings", JSON.stringify(settings));
+  $("#settingsMsg").textContent = "✅ الإعدادات اتحفظت في المتصفح ده.";
+});
+$("#testTokenBtn").addEventListener("click", async () => {
+  const t = $("#setToken").value.trim();
+  if(!t){ $("#settingsMsg").textContent = "حط التوكن الأول."; return; }
+  $("#settingsMsg").textContent = "بختبر الاتصال…";
+  try{
+    const res = await fetch("https://api.github.com/repos/" + ($("#setOwner").value.trim() || "ahmewebsit0-afk") + "/" + ($("#setRepo").value.trim() || "bru-menu"), {headers: {"Authorization": "Bearer " + t, "Accept": "application/vnd.github+json"}});
+    if(res.ok){ const j = await res.json(); $("#settingsMsg").textContent = "✅ الاتصال شغال — الريبو " + j.full_name + " متاح."; }
+    else { const j = await res.json().catch(()=>({})); $("#settingsMsg").textContent = "✖ فشل (" + res.status + "): " + (j.message || "توكن غلط أو مفيش صلاحية."); }
+  }catch(e){ $("#settingsMsg").textContent = "✖ خطأ في الشبكة: " + e.message; }
+});
+
+/* ---------- boot ---------- */
+if(sessionStorage.getItem("bruAdminAuth") === "1") loadMenu();
+</script>
+</body>
+</html>
